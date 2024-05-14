@@ -1,0 +1,73 @@
+Introduction:
+
+Présentation de l'entreprise et de son activité : [Le Petit Monde en Plastique] est une entreprise spécialisée dans la vente de figurines et de goodies pour les passionnés de manga, de jeux vidéo et de culture geek.
+
+Objectifs du site internet : 
+Le site internet a pour objectif de proposer une plateforme de vente en ligne pour les produits de l'entreprise, de promouvoir la marque et de fidéliser les clients en proposant des fonctionnalités communautaires.
+
+Cible visée : 
+La cible visée est composée de passionnés de manga, de jeux vidéo et de culture geek, âgés de 18 à 35 ans, à la recherche de produits de qualité et de services personnalisés.
+
+Fonctionnalités principales:
+
+Boutique en ligne avec un catalogue de produits (figurines et goodies) présentant les caractéristiques techniques, les photos, les prix, les disponibilités, etc.
+Panier d'achat et processus de commande sécurisé (paiement en ligne, choix du mode de livraison, etc.).
+Compte client avec historique de commandes, informations personnelles, adresses de livraison, etc.
+Gestion des moyens de paiement (carte bancaire, PayPal, virement, etc.) et des livraisons (délais, frais, suivi de colis, etc.).
+Carte interactive pour visualiser les différents points de vente physique avec leurs coordonnées, horaires d'ouverture, etc.
+Fonctionnalité de recherche et de filtrage des produits (par catégorie, prix, marque, etc.).
+Possibilité de laisser des avis sur les produits avec un système de modération.
+Création et gestion d'événements par la communauté (conventions, tournois, etc.) avec une description, une date, un lieu, etc.
+Système de notation et de commentaires pour les événements avec un système de modération.
+Messagerie interne pour les utilisateurs pour échanger entre eux.
+
+Design et ergonomie:
+
+Charte graphique en adéquation avec l'univers de la marque, reprenant les codes couleurs et les éléments graphiques de l'entreprise.
+Responsive design pour une utilisation optimale sur tous les supports (ordinateurs, tablettes, smartphones).
+Navigation intuitive et facile d'accès (menu, fil d'Ariane, etc.).
+Mise en avant des produits phares et des promotions en cours sur la page d'accueil.
+Présentation claire et détaillée des produits avec des photos de qualité.
+Processus de commande simple et rapide.
+Accessibilité pour les personnes en situation de handicap (normes WCAG, etc.).
+
+Contenu:
+
+Présentation détaillée des produits avec des photos de qualité, des descriptions, des caractéristiques techniques, etc.
+Description des points de vente physique avec leurs coordonnées, horaires d'ouverture, etc.
+Présentation de l'équipe et de l'histoire de l'entreprise.
+Mentions légales et conditions générales de vente.
+FAQ et guide d'utilisation du site.
+Actualités et articles de blog sur l'univers des figurines et des goodies.
+Vidéos et tutoriels sur l'utilisation des produits.
+Descriptions des événements créés par la communauté.
+
+Référencement naturel et stratégie de contenu:
+
+Optimisation du référencement naturel pour une meilleure visibilité sur les moteurs de recherche (balises méta, mots-clés, etc.).
+Stratégie de contenu pour animer le site et fidéliser les utilisateurs (blog, actualités, réseaux sociaux, etc.).
+Mise en place d'une newsletter pour informer les clients des nouveautés et des promotions.
+Partenariats avec des influenceurs et des blogueurs pour promouvoir la marque.
+
+Hébergement et maintenance:
+
+Hébergement du site sur un serveur sécurisé et performant.
+Maintenance régulière du site pour garantir son bon fonctionnement et sa sécurité.
+Mise à jour régulière du contenu et des fonctionnalités.
+Sauvegarde régulière des données.
+
+Budget et planning:
+
+Le budget prévisionnel pour la réalisation du site est de [X] euros.
+
+Le planning prévisionnel de développement et de mise en ligne du site est le suivant :
+
+Étape 1 : Rédaction du cahier des charges et choix du prestataire (1 mois)
+
+Étape 2 : Conception graphique et ergonomique du site (1 mois)
+
+Étape 3 : Développement des fonctionnalités et intégration du contenu (3 mois)
+
+Étape 4 : Tests et recette du site (1 mois)
+
+Étape 5 : Mise en ligne du site et formation des utilisateurs (1 mois)
