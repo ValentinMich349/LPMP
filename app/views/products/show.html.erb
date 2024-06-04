@@ -1,1 +1,135 @@
-<h1>Détails de l'Article (Fake)</h1>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+
+
+<div class="container mt-5">
+  <!-- Navigation -->
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <%= link_to "Accueil", root_path, class: "nav-link breadcrumb-item" %>
+      <li class="breadcrumb-item d-inline">
+        <%= link_to "Produits", products_path, class: "nav-link" %>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page"><%= @product.name %></li>
+    </ol>
+  </nav>
+
+  <div class="row">
+    <div class="col-md-6">
+      <!-- Miniatures -->
+      <div class="row">
+        <div class="col-md-3">
+          <img src="miniature_1.jpg" class="img-fluid rounded mb-2" alt="Miniature 1">
+          <img src="miniature_2.jpg" class="img-fluid rounded mb-2" alt="Miniature 2">
+          <img src="miniature_3.jpg" class="img-fluid rounded mb-2" alt="Miniature 3">
+        </div>
+        <div class="col-md-9">
+          <!-- Image du produit -->
+         
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <!-- Titre du produit -->
+      <h1><%= @product.name %></h1>
+      <!-- Étoiles pour représenter la note -->
+      <div class="rating">
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star checked"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+      </div>
+      <!-- Description du produit -->
+      <p><%= @product.description %></p>
+      <!-- Prix du produit -->
+      <p><strong>Prix: $<%= @product.price %></strong></p>
+      <!-- Spécifications techniques -->
+      <h4>Spécifications Techniques</h4>
+      <ul>
+        <li>Matériau: Métal</li>
+        <li>Taille: 10cm x 15cm</li>
+        <li>Poids: 500g</li>
+      </ul>
+      <!-- Sélection de la taille du cadre -->
+      <div class="mt-4">
+        <label for="frame-size">Choisissez la taille:</label>
+        <select class="form-select" aria-label="Taille du cadre" id="frame-size">
+          <option value="small">Petit</option>
+          <option value="medium">Moyen</option>
+          <option value="large">Grand</option>
+        </select>
+      </div>
+      <% if user_signed_in? %>
+        <!-- Bouton d'ajout au panier -->
+        <%= link_to "Ajouter au panier", add_to_cart_path(product_id: @product.id), method: :post, class: "btn btn-primary mt-3" %>
+      <% else %>
+        <p>Veuillez <%= link_to 'vous connecter', new_user_session_path %> ou <%= link_to 'vous inscrire', new_user_registration_path %> pour ajouter des articles au panier.</p>
+      <% end %>
+      <!-- Options de livraison et de retour -->
+      <div class="mt-4">
+        <div class="alert alert-success" role="alert">
+          Livraison gratuite et retours gratuits pour tous les articles.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section de promotion -->
+  <div class="row mt-5">
+    <div class="col-md-12">
+      <div class="alert alert-info" role="alert">
+        Ne manquez pas notre promotion spéciale sur ce produit! Réduction de 20% pour les 100 premières commandes. <a href="#" class="alert-link">Achetez maintenant</a>.
+      </div>
+    </div>
+  </div>
+
+  <!-- Onglets de produit -->
+  <div class="mt-5">
+    <ul class="nav nav-tabs" id="productTab" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Description</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="additional-info-tab" data-toggle="tab" href="#additional-info" role="tab" aria-controls="additional-info" aria-selected="false">Informations Supplémentaires</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="reviews-tab" data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false">Avis</a>
+      </li>
+    </ul>
+
+    <div class="tab-content" id="productTabContent">
+      <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
+        <p>La description de l'article est : Cet article est un produit de haute qualité conçu pour répondre à vos besoins quotidiens. Fabriqué à partir de matériaux durables, il offre une durabilité exceptionnelle. Sa conception ergonomique le rend confortable à utiliser pendant de longues périodes. Que vous soyez un professionnel ou un utilisateur occasionnel, cet article est sûr de vous satisfaire.</p>
+      </div>
+      <div class="tab-pane fade" id="additional-info" role="tabpanel" aria-labelledby="additional-info-tab">
+        <h4>Spécifications Techniques</h4>
+        <ul>
+          <li>Taille: Grand</li>
+          <li>Poids: 500g</li>
+          <li>Matériau: Alliage d'aluminium</li>
+          <li>Compatibilité: Universelle</li>
+          <li>Garantie: 2 ans</li>
+          <!-- Ajoutez d'autres spécifications techniques si nécessaire -->
+        </ul>
+        <p>Ces spécifications techniques fournissent des informations détaillées sur les caractéristiques de cet article.</p>
+        <!-- Vous pouvez également ajouter d'autres détails supplémentaires ici -->
+      </div>
+      <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
+        <!-- Si vous avez des avis sur le produit, vous pouvez les afficher ici -->
+        <div class="review">
+          <h5>Excellent produit!</h5>
+          <p>Cet article a dépassé toutes mes attentes. Je le recommande vivement!</p>
+          <!-- Vous pouvez afficher d'autres détails de l'avis, tels que la note, l'auteur, etc. -->
+        </div>
+        <div class="review">
+          <h5>Un peu décevant</h5>
+          <p>Je m'attendais à mieux pour le prix. La qualité est moyenne.</p>
+          <!-- Vous pouvez afficher d'autres détails de l'avis, tels que la note, l'auteur, etc. -->
+        </div>
+        <!-- Vous pouvez ajouter un formulaire pour soumettre un nouvel avis ici -->
+      </div>
+    </div>
+  </div>
+</div>
