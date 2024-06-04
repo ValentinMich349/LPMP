@@ -72,3 +72,7 @@ gem "faker", "~> 3.4"
 
 gem "stripe", "~> 11.6"
 
+
+gem "jquery-rails", "~> 4.6"
+
+gem "turbolinks", "~> 5.2"
