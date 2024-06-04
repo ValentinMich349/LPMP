@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bienvenue sur mon site</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
+<body>
+  <header>
+    <h1>Bienvenue sur mon site</h1>
+    <nav>
+      <ul>
+        <li><a href="<%= root_path %>">Accueil</a></li>
+        <!-- Ajoutez d'autres liens ici -->
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Page d'accueil</h2>
+    <p>Bienvenue sur la page d'accueil de notre site. Nous sommes ravis de vous avoir ici.</p>
+  </main>
+
+  <footer>
+    <p>&copy; 2024 Mon Site. Tous droits réservés.</p>
+  </footer>
+</body>
+</html>
