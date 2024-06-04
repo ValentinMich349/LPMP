@@ -17,9 +17,6 @@
           <li class="nav-item">
             <%= link_to 'À propos', about_path, class: 'nav-link' %>
           </li>
-          <li class="nav-item">
-            <%= link_to 'S\'inscrire', new_user_registration_path, class: 'nav-link' %>
-          </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
           <input class="form-control mr-sm-2" type="search" placeholder="Que recherchez-vous ?" aria-label="Search">
@@ -36,11 +33,28 @@
               <i class="fas fa-shopping-cart"></i>
             <% end %>
           </li>
-          <li class="nav-item">
-            <%= link_to 'Profile',  class: 'nav-link' do %>
-              <i class="fas fa-user"></i>
-            <% end %>
-          </li>
+         <% if user_signed_in? %>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-user"></i>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                <%= link_to 'Mon Profil', profile_path, class: 'dropdown-item' %>
+                <%= link_to 'Mes commandes', orders_path, class: 'dropdown-item' %>
+                <%= link_to 'Mes annulations', cancellations_path, class: 'dropdown-item' %>
+                <%= link_to 'Mes avis', reviews_path, class: 'dropdown-item' %>
+                <div class="dropdown-divider"></div>
+                <%= link_to "Se déconnecter", destroy_user_session_path, class: 'dropdown-item', method: :delete %>
+              </div>
+            </li>
+          <% else %>
+            <li class="nav-item">
+              <%= link_to 'S\'inscrire', new_user_registration_path, class: 'nav-link' %>
+            </li>
+            <li class="nav-item">
+              <%= link_to 'Se connecter', new_user_session_path, class: 'nav-link' %>
+            </li>
+          <% end %>
         </ul>
       </div>
     </nav>
