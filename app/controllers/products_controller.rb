@@ -39,7 +39,7 @@ class ProductsController < ApplicationController
     redirect_to products_path
   end
 
-  private
+ private
 
   def product_params
     params.require(:product).permit(:title, :content)

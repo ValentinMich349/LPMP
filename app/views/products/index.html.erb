@@ -1,9 +1,22 @@
-<h1>Liste des Produits (Fake)</h1>
-
-<ul>
-  <li><%= link_to 'Produit 1', product_path(1) %></li>
-  <li><%= link_to 'Produit 2', product_path(2) %></li>
-  <li><%= link_to 'Produit 3', product_path(3) %></li>
-</ul>
-
-<%= link_to 'Créer un nouveau produit', new_product_path %>
+<div class="container mt-5">
+  <h1 class="mb-4 text-center">Liste des Produits</h1>
+  <div class="row">
+    <% @products.each do |product| %>
+      <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow">
+         
+          <div class="card-body">
+            <h5 class="card-title"><%= product.name %></h5>
+            <p class="card-text"><%= truncate(product.description, length: 100) %></p>
+            <p class="card-text"><strong>Prix: </strong><%= number_to_currency(product.price) %></p>
+            <a href="<%= product_path(product) %>" class="btn btn-primary btn-block">Voir le produit</a>
+            <div class="d-flex justify-content-between mt-2">
+              <span><i class="far fa-eye"></i> 1000</span>
+              <span><i class="far fa-heart"></i> 50</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
