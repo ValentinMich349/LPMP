@@ -1,15 +1,6 @@
-  <header>
-    <h1><%= @article.title %></h1>
-    <nav>
-      <ul>
-        <li><a href="<%= root_path %>">Accueil</a></li>
-        <li><a href="<%= articles_path %>">Articles</a></li>
-        <li><a href="<%= new_article_path %>">Créer un article</a></li>
-      </ul>
-    </nav>
-  </header>
+<h1>Détails de l'Article</h1>
 
-  <main>
-    <h2><%= @article.title %></h2>
-    <p><%= @article.body %></p>
-  </main>
+<h2><%= @article.title %></h2>
+<p><%= @article.content %></p>
+
+<%= link_to "Retour à la liste des articles", articles_path %>
