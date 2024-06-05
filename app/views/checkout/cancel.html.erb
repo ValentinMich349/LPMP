@@ -1,0 +1,32 @@
+<div class="container text-center my-5">
+  <h1 class="display-4">Paiement Échoué</h1>
+  <div class="alert alert-danger mt-4" role="alert">
+    <h2 class="alert-heading">Oops, quelque chose s'est mal passé !</h2>
+    <p>Le paiement n'a pas abouti. Veuillez réessayer.</p>
+    <hr>
+    <p class="mb-0">Vous serez redirigé vers votre panier dans <span id="countdown">30</span> secondes.</p>
+  </div>
+  <a href="<%= cart_path(current_user.cart) %>" class="btn btn-primary btn-lg mt-3">Retourner au panier maintenant</a>
+</div>
+
+<script>
+  function startCountdown(duration, display) {
+    var timer = duration, seconds;
+    var countdownInterval = setInterval(function() {
+      seconds = parseInt(timer % 60, 10);
+
+      display.textContent = seconds;
+
+      if (--timer < 0) {
+        clearInterval(countdownInterval);
+        window.location.href = "<%= cart_path(current_user.cart) %>";
+      }
+    }, 1000);
+  }
+
+  window.onload = function() {
+    var countdownDuration = 30; // 30 seconds
+    var display = document.querySelector('#countdown');
+    startCountdown(countdownDuration, display);
+  };
+</script>

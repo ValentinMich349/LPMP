@@ -36,7 +36,7 @@
         <h3>Total : <%= number_to_currency(@cart.cart_items.sum { |item| item.product.price * item.quantity }) %></h3>
       </div>
       <div class="col-md-6 text-right">
-        <%= link_to 'Passer à la caisse', new_order_path, class: 'btn btn-success' %>
+        <%= button_to "Passer commande", checkout_create_path(total: @cart.total, event_id: @cart.id), class: "btn btn-primary", data: { turbo: false } %>
       </div>
     </div>
   <% else %>
