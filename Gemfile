@@ -76,3 +76,5 @@ gem "stripe", "~> 11.6"
 gem "jquery-rails", "~> 4.6"
 
 gem "turbolinks", "~> 5.2"
+
+gem "dotenv-rails", "~> 3.1"
