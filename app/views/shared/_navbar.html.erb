@@ -39,7 +39,7 @@
                 <i class="fas fa-user"></i>
               </a>
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                <%= link_to 'Mon Profil', profile_path, class: 'dropdown-item' %>
+                <%= link_to 'Mon Profil',  user_path(current_user), class: 'dropdown-item' %>
                 <%= link_to 'Mes commandes', orders_path, class: 'dropdown-item' %>
                 <%= link_to 'Mes annulations', cancellations_path, class: 'dropdown-item' %>
                 <%= link_to 'Mes avis', reviews_path, class: 'dropdown-item' %>
