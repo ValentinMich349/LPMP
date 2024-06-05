@@ -1,0 +1,46 @@
+<!-- app/views/carts/show.html.erb -->
+<div class="container mt-5">
+  <h1>Votre Panier</h1>
+  <% if @cart.cart_items.any? %>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Produit</th>
+          <th>Prix</th>
+          <th>Quantité</th>
+          <th>Sous-total</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @cart.cart_items.each do |item| %>
+          <tr>
+            <td><%= item.product.name %></td>
+            <td><%= number_to_currency(item.product.price) %></td>
+            <td>
+              <%= form_for [@cart, item], html: { method: :put } do |f| %>
+                <%= f.number_field :quantity, value: item.quantity, min: 1, class: 'form-control' %>
+                <%= f.submit 'Mettre à jour', class: 'btn btn-primary' %>
+              <% end %>
+            </td>
+            <td><%= number_to_currency(item.product.price * item.quantity) %></td>
+            <td>
+              <%= link_to 'Supprimer', [@cart, item], method: :delete, class: 'btn btn-danger', data: { confirm: 'Êtes-vous sûr ?' } %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <div class="row">
+      <div class="col-md-6">
+        <h3>Total : <%= number_to_currency(@cart.cart_items.sum { |item| item.product.price * item.quantity }) %></h3>
+      </div>
+      <div class="col-md-6 text-right">
+        <%= link_to 'Passer à la caisse', new_order_path, class: 'btn btn-success' %>
+      </div>
+    </div>
+  <% else %>
+    <p>Votre panier est vide.</p>
+    <%= link_to 'Voir les produits', products_path, class: 'btn btn-primary' %>
+  <% end %>
+</div>

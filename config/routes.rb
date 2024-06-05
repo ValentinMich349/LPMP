@@ -4,10 +4,15 @@ Rails.application.routes.draw do
   }
 
   resources :users, only: [:show, :edit, :update]
+  resources :products, only: [:index, :show]
+  resource :cart, only: [:show] do
+    resources :cart_items, only: [:create, :update, :destroy]
+  end
+  resources :orders, only: [:new, :create, :index]
   
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  resources :products, only: [:index, :show, :new, :create, :edit, :update, :destroy]
+
   root 'home#index'
   
 
@@ -17,7 +22,6 @@ Rails.application.routes.draw do
   get '/about', to: 'static_pages#about'
   get '/contact', to: 'static_pages#contact'
 
-  resources :orders, only: [:index]
   resources :cancellations, only: [:index]
   resources :reviews, only: [:index]
 end

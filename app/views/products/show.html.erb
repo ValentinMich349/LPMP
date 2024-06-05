@@ -79,7 +79,7 @@
 
       <% if user_signed_in? %>
         <!-- Bouton d'ajout au panier -->
-        
+        <%= link_to 'Ajouter au panier', cart_cart_items_path(product_id: @product.id), method: :post, class: 'btn btn-primary' %>
       <% else %>
         <p>Veuillez <%= link_to 'vous connecter', new_user_session_path %> ou <%= link_to 'vous inscrire', new_user_registration_path %> pour ajouter des articles au panier.</p>
       <% end %>
