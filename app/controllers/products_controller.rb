@@ -41,9 +41,10 @@ class ProductsController < ApplicationController
 
  private
 
-  def product_params
-    params.require(:product).permit(:title, :content)
-  end
+ def product_params
+  params.require(:product).permit(:name, :description, :price, :cloudinary_url)
+end
+
 
   def set_product
     @product = Product.find(params[:id])

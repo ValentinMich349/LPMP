@@ -1,21 +1,18 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
+# Seed products with associated Cloudinary URLs
+products = [
+  { name: 'Figurine San Goku', price: 19.99, description: 'Super figurine Sangoku', cloudinary_url: 'https://res.cloudinary.com/dhklqroj3/image/upload/v1717659189/figurine_san3_dgxo4h.jpg' },
+  { name: 'Chibi Sebastian', price: 29.99, description: 'Mignonne figurine de Sebastian', cloudinary_url: 'https://res.cloudinary.com/dhklqroj3/image/upload/v1717659186/chibi_sebastian_nta2lk.jpg' },
+  { name: 'Chibi Satoru Gojo', price: 39.99, description: 'Vous ne verrez pas ses beaux yeux maintenant', cloudinary_url: 'https://res.cloudinary.com/dhklqroj3/image/upload/v1717659187/chibi_gojo_xlpt2q.jpg' },
+  # Add more products as needed
+]
 
-Product.create(
-  name: 'Produit Exemple',
-  price: 19.99,
-  description: 'Ceci est un produit d\'exemple avec du contenu détaillé pour démontrer l\'affichage dans l\'application.'
-)
-
-Product.create(
-  name: 'Deuxième Produit',
-  price: 29.99,
-  description: 'Ceci est un autre produit d\'exemple.'
-)
+# Seed products with associated Cloudinary URLs
+products.each do |product_data|
+  product = Product.create!(
+    name: product_data[:name],
+    price: product_data[:price],
+    description: product_data[:description],
+    cloudinary_url: product_data[:cloudinary_url]
+  )
+  puts "Product #{product.name} created with Cloudinary URL #{product_data[:cloudinary_url]}"
+end

@@ -1,5 +1,5 @@
 
-  <!-- Bannière -->
+<!-- Bannière -->
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-2">
@@ -22,100 +22,82 @@
       </ul>
     </div>
     <div class="col-md-10">
-      <img src="https://via.placeholder.com/1500x600" class="img-fluid" alt="Bannière">
+      <%= image_tag "https://via.placeholder.com/1500x600", class: "img-fluid", alt: "Bannière" %>
       <div class="text-center mt-3">
-        <a href="#" class="btn btn-danger">Voir tous les produits</a>
+        <%= link_to 'Voir tous les produits', '#', class: 'btn btn-danger' %>
       </div>
     </div>
   </div>
 </div>
 
-  <!-- Catégories -->
-  <div class="container mt-5">
-    <h1 class="mb-5" style="color: #D65830;">
-      <span style="color: #D65830; vertical-align: middle;">&#9632;</span> <!-- Carré orange -->
-      Catégories
-    </h1>
-    <div class="row text-center">
-      <div class="col-md-2 col-sm-4 mb-3">
-        <div class="border border-dark p-3 bg-white">
-          <i class="fas fa-cube fa-2x"></i>
-          <div>Modèles 3D</div>
-        </div>
-      </div>
-      <div class="col-md-2 col-sm-4 mb-3">
-        <div class="border border-dark p-3 bg-white">
-          <i class="fas fa-chess-knight fa-2x"></i>
-          <div>Modèles Chibi</div>
-        </div>
-      </div>
-      <div class="col-md-2 col-sm-4 mb-3">
-        <div class="border border-dark p-3 bg-white">
-          <i class="fas fa-glasses fa-2x"></i>
-          <div>Accessoires</div>
-        </div>
-      </div>
-      <div class="col-md-2 col-sm-4 mb-3">
-        <div class="border border-dark p-3 bg-white">
-          <i class="fas fa-calendar-alt fa-2x"></i>
-          <div>Événementiel</div>
-        </div>
-      </div>
-      <div class="col-md-2 col-sm-4 mb-3">
-        <div class="border border-dark p-3 bg-white">
-          <i class="fas fa-map fa-2x"></i>
-          <div>Cartes Interactives</div>
-        </div>
+<!-- Catégories -->
+<div class="container mt-5">
+  <h1 class="mb-5" style="color: #D65830;">
+    <span style="color: #D65830; vertical-align: middle;">&#9632;</span> <!-- Carré orange -->
+    Catégories
+  </h1>
+  <div class="row text-center">
+    <div class="col-md-2 col-sm-4 mb-3">
+      <div class="border border-dark p-3 bg-white">
+        <i class="fas fa-cube fa-2x"></i>
+        <div>Modèles 3D</div>
       </div>
     </div>
+    <!-- Ajoutez d'autres catégories ici au besoin -->
   </div>
+</div>
 
-  <!-- Prochains événements -->
-  <div class="container mt-5">
-    <h2 class="mb-5" style="color: #D65830;">
-      <span style="color: #D65830; vertical-align: middle;">&#9632;</span> <!-- Carré orange -->
-      Prochains événements
-    </h2>
-    <div class="row">
-      <% (1..6).each do |i| %>
-        <div class="col-md-2 col-sm-4 mb-3">
-          <div class="card">
-            <img src="https://via.placeholder.com/150" class="card-img-top" alt="Événement <%= i %>">
-            <div class="card-body text-center">
-              <h5 class="card-title">Événement <%= i %></h5>
-            </div>
+<!-- Prochains événements -->
+<div class="container mt-5">
+  <h2 class="mb-5" style="color: #D65830;">
+    <span style="color: #D65830; vertical-align: middle;">&#9632;</span> <!-- Carré orange -->
+    Prochains événements
+  </h2>
+  <div class="row">
+    <% (1..6).each do |i| %>
+      <div class="col-md-2 col-sm-4 mb-3">
+        <div class="card">
+          <%= image_tag "https://via.placeholder.com/150", class: "card-img-top", alt: "Événement #{i}" %>
+          <div class="card-body text-center">
+            <h5 class="card-title">Événement <%= i %></h5>
           </div>
         </div>
-      <% end %>
-    </div>
+      </div>
+    <% end %>
   </div>
+</div>
 
-  <!-- Explorez nos produits -->
-  <div class="container mt-5">
-    <h2 class="mb-5" style="color: #D65830;">
-      <span style="color: #D65830; vertical-align: middle;">&#9632;</span> <!-- Carré orange -->
-      Explorez nos produits
-    </h2>
-    <div class="row">
-      <% @products.each do |product| %>
-        <div class="col-md-3 col-sm-6 col-6 mb-4">
-          <div class="card position-relative">
-            <div class="position-absolute top-0 end-0 mt-2 me-2 d-flex flex-column">
-              <i class="fa fa-heart mb-1"></i> <!-- Icône de cœur -->
-              <i class="fa fa-eye"></i> <!-- Icône d'œil -->
-            </div>
-            
-            <div class="card-body text-center">
-              <h5 class="card-title"><%= product.name %></h5>
-              <p class="card-text"><%= product.description %></p>
-              <p class="card-text">★★★★★ (5 étoiles)</p>
-              <%= link_to 'Acheter', product_path(product), class: 'btn btn-primary btn-sm' %>
-            </div>
-          </div>
+<!-- Explorez nos produits -->
+<div class="container mt-5">
+  <h2 class="mb-5" style="color: #D65830;">
+    <span style="color: #D65830; vertical-align: middle;">&#9632;</span> <!-- Carré orange -->
+    Explorez nos produits
+  </h2>
+  <div class="row">
+  <% @products.each do |product| %>
+    <div class="col-md-3 col-sm-6 col-6 mb-4">
+      <div class="card position-relative">
+        <div class="position-absolute top-0 end-0 mt-2 me-2 d-flex flex-column">
+          <i class="fa fa-heart mb-1"></i> <!-- Icône de cœur -->
+          <i class="fa fa-eye"></i> <!-- Icône d'œil -->
         </div>
-      <% end %>
+        <div class="card-body text-center">
+          <% if product.cloudinary_url.present? %>
+            <%= image_tag product.cloudinary_url, class: "card-img-top", alt: product.name %>
+          <% else %>
+            <p>Image non disponible</p>
+          <% end %>
+          <h5 class="card-title"><%= product.name %></h5>
+          <p class="card-text"><%= product.description %></p>
+          <p class="card-text">★★★★★ (5 étoiles)</p>
+          <%= link_to 'Acheter', product_path(product), class: 'btn btn-primary btn-sm' %>
+        </div>
+      </div>
     </div>
+  <% end %>
+  
   </div>
+</div>
 
   <!-- Nouveautés -->
   <div class="container mt-5">
