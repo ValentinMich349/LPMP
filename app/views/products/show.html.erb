@@ -56,6 +56,8 @@
         <button class="btn btn-outline-secondary" type="button" id="button-minus" style="background-color: grey; color: white;">-</button>
         <input type="number" id="product-quantity" value="1" min="1" max="5" style="width: 60px; text-align: center; margin: 0 5px;">
         <button class="btn btn-outline-secondary" type="button" id="button-plus" style="background-color: #D65830; color: white;">+</button>
+        <%= button_to 'Ajouter à la Wishlist', wishlist_items_path(product_id: @product.id), method: :post %>
+
       </div>
     </div>
 
