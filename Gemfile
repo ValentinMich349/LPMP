@@ -78,3 +78,7 @@ gem "jquery-rails", "~> 4.6"
 gem "turbolinks", "~> 5.2"
 
 gem "dotenv-rails", "~> 3.1"
+
+gem "dockerfile-rails", ">= 1.6", :group => :development
+
+gem "pg_search", "~> 2.3"
