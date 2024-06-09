@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     resources :cart_items, only: [:create, :update, :destroy]
   end
   resources :orders, only: [:new, :create, :index]
-  resources :categories, only: [:show]
+  resources :categories, only: [:show, :index]
   
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
