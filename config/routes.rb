@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     resources :cart_items, only: [:create, :update, :destroy]
   end
   resources :orders, only: [:new, :create, :index]
+  resources :categories, only: [:show]
   
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -28,6 +29,7 @@ Rails.application.routes.draw do
 
   get '/about', to: 'static_pages#about'
   get '/contact', to: 'static_pages#contact'
+  get 'search', to: 'search#index'
 
 
 end
