@@ -1,0 +1,30 @@
+<!-- app/views/wishlists/show.html.erb -->
+
+<div class="container mt-5">
+  <h1>Liste de Souhaits (<%= @wishlist.wishlist_items.count %>)</h1>
+
+  <% if @wishlist.wishlist_items.present? %>
+    <div class="row row-cols-1 row-cols-md-4 g-4">
+      <% @wishlist.wishlist_items.each do |wishlist_item| %>
+        <div class="col my-5"> 
+          <div class="card h-100 position-relative">
+            <div class="card-body">
+              <h5 class="card-title"><%= wishlist_item.product.name %></h5>
+              <p class="card-text"><%= number_to_currency(wishlist_item.product.price) %></p>
+            </div>
+            <div class="card-footer bg-dark text-white d-flex justify-content-between align-items-center">
+              <button class="btn  text-white border-0 me-2" disabled>
+                <i class="fas fa-shopping-cart me-1"></i>Ajouter au panier
+              </button>
+              <%= button_to wishlist_item_path(wishlist_item), method: :delete, data: { confirm: 'Êtes-vous sûr de vouloir supprimer cet article de votre liste de souhaits ?' }, class: 'position-absolute top-0 end-0 mt-2 me-2 btn btn-link' do %>
+                <i class="fas fa-trash-alt text-danger"></i>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p>Votre liste de souhaits est vide pour le moment.</p>
+  <% end %>
+</div>
