@@ -1,0 +1,35 @@
+<!-- app/views/search/index.html.erb -->
+<% if request.xhr? %>
+  <ul>
+    <% @products.each do |product| %>
+      <li>
+        <%= link_to product.name, product_path(product) %>
+      </li>
+    <% end %>
+    <% @categories.each do |category| %>
+      <li>
+        <%= link_to category.name, category_path(category) %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <h1>Résultats de la recherche</h1>
+
+  <h2>Produits</h2>
+  <ul>
+    <% @products.each do |product| %>
+      <li>
+        <%= link_to product.name, product_path(product) %>
+      </li>
+    <% end %>
+  </ul>
+
+  <h2>Catégories</h2>
+  <ul>
+    <% @categories.each do |category| %>
+      <li>
+        <%= link_to category.name, category_path(category) %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>

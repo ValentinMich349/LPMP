@@ -1,46 +1,68 @@
-<!-- app/views/carts/show.html.erb -->
 <div class="container mt-5">
-  <h1>Votre Panier</h1>
+  <h1 class="mb-4" style="color: #D65830;">Votre Panier</h1>
   <% if @cart.cart_items.any? %>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Produit</th>
-          <th>Prix</th>
-          <th>Quantité</th>
-          <th>Sous-total</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @cart.cart_items.each do |item| %>
+    <div class="table-responsive">
+      <table class="table table">
+        <thead>
           <tr>
-            <td><%= item.product.name %></td>
-            <td><%= number_to_currency(item.product.price) %></td>
-            <td>
-              <%= form_for [@cart, item], html: { method: :put } do |f| %>
-                <%= f.number_field :quantity, value: item.quantity, min: 1, class: 'form-control' %>
-                <%= f.submit 'Mettre à jour', class: 'btn btn-primary' %>
-              <% end %>
-            </td>
-            <td><%= number_to_currency(item.product.price * item.quantity) %></td>
-            <td>
-              <%= link_to 'Supprimer', [@cart, item], method: :delete, class: 'btn btn-danger', data: { confirm: 'Êtes-vous sûr ?' } %>
-            </td>
+            <th>Produit</th>
+            <th>Prix</th>
+            <th>Quantité</th>
+            <th>Sous-total</th>
+            <th>Actions</th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
-    <div class="row">
-      <div class="col-md-6">
-        <h3>Total : <%= number_to_currency(@cart.cart_items.sum { |item| item.product.price * item.quantity }) %></h3>
+        </thead>
+        <tbody>
+          <% @cart.cart_items.each do |item| %>
+            <tr>
+              <td><%= item.product.name %></td>
+              <td><%= number_to_currency(item.product.price) %></td>
+              <td>
+                <%= form_for [@cart, item], html: { method: :put } do |f| %>
+                  <%= f.number_field :quantity, value: item.quantity, min: 1, class: 'form-control' %>
+                <% end %>
+              </td>
+              <td><%= number_to_currency(item.product.price * item.quantity) %></td>
+              <td>
+                <%= link_to 'Supprimer', [@cart, item], method: :delete, class: 'btn btn-danger btn-sm', style: 'background-color: #D65830; border-color: #D65830;', data: { confirm: 'Êtes-vous sûr ?' } %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <!-- Bouton "Continuer les achats" -->
+    <div class="text-left ">
+        <%= link_to "Mettre à jour", "#", class: "btn btn-primary", style: 'background-color: grey; border-color: #D65830; width: 20%;' %>
+        <%= link_to 'Continuer les achats', products_path, class: 'btn btn-primary', style: 'background-color: #D65830; border-color: #D65830;' %>
+    </div>
+      
+    <!-- Espace pour "Appliquer le coupon" et "Total Panier" -->
+    <div class="row mt-2">
+      <div class="col-md-2">
+        <h4 style="margin-top: 10px;">Code coupon</h4>
+        <input type="text" class="form-control" style="width: 100%;">
+        <button class="btn btn-primary mt-3" style="background-color: grey; border-color: #D65830; width: 100%;">Appliquer le coupon</button>
       </div>
-      <div class="col-md-6 text-right">
-        <%= button_to "Passer commande", checkout_create_path(total: @cart.total, event_id: @cart.id), class: "btn btn-primary", data: { turbo: false } %>
+      <div class="col-md-3 offset-md-7">
+        <h4 style="margin-top: 10px;">Total Panier</h4>
+        <ul class="list-unstyled">
+          <li style="border-bottom: 1px solid #D65830; padding: 5px 0;">Sous-total: <%= number_to_currency(@cart.cart_items.sum { |item| item.product.price * item.quantity }) %></li>
+          <li style="border-bottom: 1px solid #D65830; padding: 5px 0;">Livraison: Gratuit</li>
+          <li style="padding: 5px 0;">Total: <%= number_to_currency(@cart.cart_items.sum { |item| item.product.price * item.quantity }) %></li>
+        </ul>
+        <!-- Bouton "Procéder au paiement" -->
+        <div class="text-left mt-3" style="border-top: 1px solid #D65830; padding-top: 10px;">
+          <%= button_to "Procéder au paiement", checkout_create_path(total: @cart.total, event_id: @cart.id), class: "btn btn-primary", style: 'background-color: #D65830; border-color: #D65830; width: 100%;', data: { turbo: false } %>
+        </div>
+        <!-- Bouton "Mettre à jour" -->
+        <div class="text-left mt-3  element mb-5">
+          
+        </div>
       </div>
     </div>
   <% else %>
-    <p>Votre panier est vide.</p>
-    <%= link_to 'Voir les produits', products_path, class: 'btn btn-primary' %>
+    <p class="lead" style="color: #D65830;">Votre panier est vide.</p>
+    <%= link_to 'Voir les produits', products_path, class: 'btn btn-primary', style: 'background-color: #D65830; border-color: #D65830;' %>
   <% end %>
 </div>
