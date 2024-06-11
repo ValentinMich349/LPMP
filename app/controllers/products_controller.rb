@@ -38,6 +38,15 @@ class ProductsController < ApplicationController
     @product.destroy
     redirect_to products_path
   end
+  
+  def like
+    @product = Product.find(params[:id])
+    @product.increment!(:likes)
+    respond_to do |format|
+      format.html { redirect_to @product }
+      format.js   # Create like.js.erb for handling JS response
+    end
+  end
 
  private
 

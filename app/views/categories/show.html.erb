@@ -1,8 +1,44 @@
-<h1><%= @category.name %></h1>
-<ul>
-  <% @products.each do |product| %>
-    <li>
-      <%= link_to product.name, product_path(product) %>
-    </li>
-  <% end %>
-</ul>
+
+<div class="container mt-5">
+  <h2 class="mb-4" style="color: #D65830;">
+    <span style="color: #D65830; vertical-align: middle;">&#9632;</span> 
+    Produit dans la catégorie <%= @category.name %>
+  </h2>
+
+  <div class="row">
+    <% @products.each do |product| %>
+      <div class="col-md-4 col-sm-6 mb-4">
+        <div class="card h-100 shadow-lg border-0">
+          <% if product.image.present? %>
+            <%= image_tag product.image, class: 'card-img-top rounded' %>
+          <% else %>
+            <img src="https://via.placeholder.com/300" class="card-img-top rounded" alt="<%= product.name %>">
+          <% end %>
+
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title text-dark"><%= product.name %></h5>
+            <p class="card-text text-muted"><%= truncate(product.description, length: 100) %></p>
+            <p class="card-text">
+              <% (1..5).each do |i| %>
+                <% if product.rating >= i %>
+                  <i class="fa fa-star text-warning"></i>
+                <% elsif product.rating >= (i - 0.5) %>
+                  <i class="fa fa-star-half-alt text-warning"></i>
+                <% else %>
+                  <i class="fa fa-star text-dark"></i>
+                <% end %>
+              <% end %>
+              (<%= product.rating %> / 5)
+            </p>
+            <p class="card-text text-muted"><strong>Prix:</strong> <%= number_to_currency(product.price, unit: "€") %></p>
+            <%= link_to 'Voir Détails', product_path(product), class: 'btn btn-outline-primary btn-sm mt-auto' %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="text-center mt-4">
+    <%= link_to 'Retour', categories_path, class: 'btn btn-secondary' %>
+  </div>
+</div>
