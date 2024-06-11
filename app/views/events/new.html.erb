@@ -1,0 +1,80 @@
+<div class="container mt-5">
+  <h1 class="mb-4" style="color: #D65830;">
+    <span style="color: #D65830; vertical-align: middle;">&#9632;</span> <!-- Carré orange -->
+    <%= action_name.capitalize %> Event
+  </h1>
+  
+  <%= form_with(model: @event, local: true, class: 'needs-validation', novalidate: true) do |form| %>
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <%= form.label :name, "Nom de l'événement", class: 'form-label' %>
+        <%= form.text_field :name, class: 'form-control', required: true %>
+        <div class="invalid-feedback">Veuillez entrer un nom pour l'événement.</div>
+      </div>
+      <div class="col-md-6">
+        <%= form.label :price, "Prix", class: 'form-label' %>
+        <%= form.number_field :price, step: 1, class: 'form-control', required: true %>
+        <div class="invalid-feedback">Veuillez entrer un prix valide.</div>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <%= form.label :start, "Date et heure de début", class: 'form-label' %>
+        <%= form.datetime_local_field :start, class: 'form-control', required: true %>
+        <div class="invalid-feedback">Veuillez entrer la date et l'heure de début.</div>
+      </div>
+      <div class="col-md-6">
+        <%= form.label :end, "Date et heure de fin", class: 'form-label' %>
+        <%= form.datetime_local_field :end, class: 'form-control', required: true %>
+        <div class="invalid-feedback">Veuillez entrer la date et l'heure de fin.</div>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-12">
+        <%= form.label :localisation, "Localisation", class: 'form-label' %>
+        <%= form.text_field :localisation, class: 'form-control', required: true %>
+        <div class="invalid-feedback">Veuillez entrer une localisation.</div>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-12">
+        <%= form.label :description, "Description", class: 'form-label' %>
+        <%= form.text_area :description, rows: 5, class: 'form-control', required: true %>
+        <div class="invalid-feedback">Veuillez entrer une description.</div>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-12">
+        <%= form.label :city_id, "Ville", class: 'form-label' %>
+        <%= form.collection_select :city_id, City.all, :id, :name, { prompt: "Sélectionner une ville" }, { class: 'form-control', required: true } %>
+        <div class="invalid-feedback">Veuillez sélectionner une ville.</div>
+      </div>
+    </div>
+
+    <div class="text-center">
+      <%= form.submit 'Ajouter événement', class: 'btn btn-primary' %>
+      <%= link_to 'Back', events_path, class: 'btn btn-secondary ms-3' %>
+    </div>
+  <% end %>
+</div>
+
+<script>
+  (function () {
+    'use strict'
+    var forms = document.querySelectorAll('.needs-validation')
+    Array.prototype.slice.call(forms)
+      .forEach(function (form) {
+        form.addEventListener('submit', function (event) {
+          if (!form.checkValidity()) {
+            event.preventDefault()
+            event.stopPropagation()
+          }
+          form.classList.add('was-validated')
+        }, false)
+      })
+  })()
+</script>

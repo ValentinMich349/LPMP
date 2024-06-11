@@ -3,9 +3,6 @@ Rails.application.routes.draw do
     registrations: 'users/registrations'
   }
 
-    
-  resource :wishlist, only: [:show]
-  resources :wishlist_items, only: [:create, :destroy]
   resources :users, only: [:show, :edit, :update]
   resources :products, only: [:index, :show, :new, :create, :edit, :update, :destroy]
   resources :cancellations, only: [:index]
@@ -15,7 +12,9 @@ Rails.application.routes.draw do
   end
   resources :orders, only: [:new, :create, :index]
   resources :categories, only: [:show, :index]
-  
+  resource :wishlist, only: [:show]
+  resources :wishlist_items, only: [:create, :destroy]
+  resources :events, only: [:index, :show, :new, :create]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   scope '/checkout' do

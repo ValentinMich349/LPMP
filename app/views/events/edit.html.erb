@@ -1,0 +1,31 @@
+<h1><%= action_name.capitalize %> Event</h1>
+<%= form_with(model: @event, local: true) do |form| %>
+  <div>
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+  <div>
+    <%= form.label :description %>
+    <%= form.text_area :description %>
+  </div>
+  <div>
+    <%= form.label :price %>
+    <%= form.number_field :price %>
+  </div>
+  <div>
+    <%= form.label :start %>
+    <%= form.datetime_select :start %>
+  </div>
+  <div>
+    <%= form.label :end %>
+    <%= form.datetime_select :end %>
+  </div>
+  <div>
+    <%= form.label :localisation %>
+    <%= form.text_field :localisation %>
+  </div>
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
+<%= link_to 'Back', events_path %>
