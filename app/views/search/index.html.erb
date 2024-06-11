@@ -1,35 +1,100 @@
-<!-- app/views/search/index.html.erb -->
-<% if request.xhr? %>
-  <ul>
-    <% @products.each do |product| %>
-      <li>
-        <%= link_to product.name, product_path(product) %>
-      </li>
-    <% end %>
-    <% @categories.each do |category| %>
-      <li>
-        <%= link_to category.name, category_path(category) %>
-      </li>
-    <% end %>
-  </ul>
-<% else %>
-  <h1>Résultats de la recherche</h1>
+<div class="container mt-5">
+    <h1 class="mb-4" style="color: #D65830;">
+      <span style="color: #D65830; vertical-align: middle;">&#9632;</span> <!-- Carré orange -->
+      Résultats de la recherche
+    </h1>
 
-  <h2>Produits</h2>
-  <ul>
-    <% @products.each do |product| %>
-      <li>
-        <%= link_to product.name, product_path(product) %>
-      </li>
-    <% end %>
-  </ul>
+    <div class="row">
+      <div class="col-md-8">
+        <% if @products.any? %>
+          <div class="row">
+            <div class="col-md-12">
+              <h2 class="mt-4" style="color: #D65830;">Produits</h2>
+              <div class="card mb-4">
+                <div class="card-body">
+                  <% @products.each do |product| %>
+                    <div class="d-flex align-items-center mb-3 border-bottom pb-2">
+                      <%= link_to product_path(product), class: 'text-decoration-none text-dark d-flex align-items-center' do %>
+                      <%= image_tag product.image, class: 'me-3 rounded', size: "50x50" %>
+                      <div>
+                        <strong><%= product.name %></strong><br>
+                        <small class="text-muted"><%= truncate(product.description, length: 60) %></small>
+                      </div>
+                      <% end %>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
 
-  <h2>Catégories</h2>
-  <ul>
-    <% @categories.each do |category| %>
-      <li>
-        <%= link_to category.name, category_path(category) %>
-      </li>
-    <% end %>
-  </ul>
-<% end %>
+        <% if @categories.any? %>
+          <div class="row">
+            <div class="col-md-12">
+              <h2 class="mt-4" style="color: #D65830;">Catégories</h2>
+              <div class="card mb-4">
+                <div class="card-body">
+                  <% @categories.each do |category| %>
+                    <div class="d-flex align-items-center mb-3 border-bottom pb-2">
+                      <%= link_to category_path(category), class: 'text-decoration-none text-dark d-flex align-items-center' do %>
+                        <i class="fa fa-tags text-success me-3"></i>
+                        <div>
+                          <strong><%= category.name %></strong><br>
+                          <small class="text-muted">Aventure toi dans <%= category.name %> </small>
+                        </div>
+                      <% end %>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>i
+
+        <% if @products.empty? && @categories.empty? %>
+          <div class="alert alert-warning text-center" role="alert">
+            <i class="fa fa-exclamation-circle me-2"></i> La recherche n'a pas abouti. Cela n'existe pas ou n'est pas encore sur le site.
+          </div>
+        <% end %>
+      </div>
+
+      <div class="col-md-4">
+        <!-- Section des produits populaires -->
+        <div class="card mb-4">
+          <div class="card-body">
+            <h4 class="card-title" style="color: #D65830;">Produits Populaires</h4>
+            <ul class="list-group list-group-flush">
+              <% @popular_products.each do |product| %>
+                <li class="list-group-item d-flex align-items-center">
+                  <%= image_tag product.image, class: 'me-3 rounded', size: "50x50" %>
+                  <div>
+                    <strong><%= product.name %></strong><br>
+                    <small class="text-muted"><%= truncate(product.description, length: 60) %></small>
+                  </div>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Section des nouveautés -->
+        <div class="card mb-4">
+          <div class="card-body">
+            <h4 class="card-title" style="color: #D65830;">Nouveautés</h4>
+            <ul class="list-group list-group-flush">
+              <% @new_products.each do |product| %>
+                <li class="list-group-item d-flex align-items-center">
+                  <%= image_tag product.image, class: 'me-3 rounded', size: "50x50" %>
+                  <div>
+                    <strong><%= product.name %></strong><br>
+                    <small class="text-muted"><%= truncate(product.description, length: 60) %></small>
+                  </div>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
