@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resource :wishlist, only: [:show]
+  resources :wishlist_items, only: [:create, :destroy]
   devise_for :users, controllers: {
     registrations: 'users/registrations'
   }

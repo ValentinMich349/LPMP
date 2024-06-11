@@ -31,11 +31,12 @@
 
 
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <%= link_to 'Favorites',  class: 'nav-link' do %>
-              <i class="fas fa-heart"></i>
-            <% end %>
-          </li>
+        <li class="nav-item">
+        <%= link_to wishlist_path(current_user.wishlist), class: 'nav-link' do %>
+          <i class="fas fa-heart"></i>
+          Favorites
+        <% end %>
+      </li>
           <li class="nav-item">
             <%= link_to cart_path, class: 'nav-link' do %>
               <i class="fas fa-shopping-cart"></i>
