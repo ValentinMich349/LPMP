@@ -12,7 +12,6 @@
 
 ActiveRecord::Schema[7.1].define(version: 2024_06_09_175244) do
 
-  # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "active_storage_attachments", force: :cascade do |t|
@@ -41,13 +40,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_09_175244) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
-  end
-
-  create_table "articles", force: :cascade do |t|
-    t.string "title"
-    t.text "body"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "cart_items", force: :cascade do |t|
@@ -143,11 +135,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_09_175244) do
   add_foreign_key "order_items", "orders"
   add_foreign_key "order_items", "products"
   add_foreign_key "orders", "users"
-
+  add_foreign_key "products", "categories"
   add_foreign_key "wishlist_items", "products"
   add_foreign_key "wishlist_items", "wishlists"
   add_foreign_key "wishlists", "users"
-
-  add_foreign_key "products", "categories"
-
 end

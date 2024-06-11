@@ -24,7 +24,7 @@
               </td>
               <td><%= number_to_currency(item.product.price * item.quantity) %></td>
               <td>
-                <%= link_to 'Supprimer', [@cart, item], method: :delete, class: 'btn btn-danger btn-sm', style: 'background-color: #D65830; border-color: #D65830;', data: { confirm: 'Êtes-vous sûr ?' } %>
+                <%= link_to '<i class="fas fa-trash-alt"></i>'.html_safe, cart_cart_item_path(item), method: :delete, class: 'btn btn-sm btn-danger', style: 'background-color: #D65830; border-color: #D65830;', title: 'Supprimer'  %>
               </td>
             </tr>
           <% end %>
