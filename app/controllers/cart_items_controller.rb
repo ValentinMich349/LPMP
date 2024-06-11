@@ -18,27 +18,42 @@ class CartItemsController < ApplicationController
     end
   
     def update
-      @cart_item = @cart.cart_items.find(params[:id])
-  
-      if @cart_item.update(cart_item_params)
-        flash[:success] = 'Quantité mise à jour avec succès'
+      @cart_item = @cart.cart_items.find_by(id: params[:id])
+
+      if @cart_item
+        @cart_item.destroy
+        flash[:success] = 'Produit supprimé du panier avec succès'
       else
-        flash[:alert] = 'Impossible de mettre à jour la quantité'
+        flash[:error] = 'Produit non trouvé dans le panier'
       end
+  
       redirect_to cart_path
     end
   
     def destroy
-      @cart_item = @cart.cart_items.find(params[:id])
-      @cart_item.destroy
-      flash[:success] = 'Produit supprimé du panier avec succès'
-      redirect_to cart_path
+      @cart_item = @cart.cart_items.find_by(id: params[:id])
+
+        if @cart_item
+          @cart_item.quantity -= 1
+
+          if @cart_item.quantity > 0
+            @cart_item.save
+          else
+            @cart_item.destroy
+          end
+
+          flash[:success] = 'Produit supprimé du panier avec succès'
+        else
+          flash[:error] = 'Produit non trouvé dans le panier'
+        end
+
+        redirect_to cart_path
     end
   
     private
   
     def set_cart
-      @cart = current_user.cart || current_user.create_cart
+      @cart = current_user.cart
     end
   
     def cart_item_params

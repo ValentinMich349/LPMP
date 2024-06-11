@@ -1,10 +1,11 @@
 Rails.application.routes.draw do
-  resource :wishlist, only: [:show]
-  resources :wishlist_items, only: [:create, :destroy]
   devise_for :users, controllers: {
     registrations: 'users/registrations'
   }
 
+    
+  resource :wishlist, only: [:show]
+  resources :wishlist_items, only: [:create, :destroy]
   resources :users, only: [:show, :edit, :update]
   resources :products, only: [:index, :show, :new, :create, :edit, :update, :destroy]
   resources :cancellations, only: [:index]
