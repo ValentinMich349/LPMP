@@ -1,7 +1,8 @@
 
   <!-- Bannière -->
 <div class="container-fluid">
-  <div class="row">
+  <div class="row justify-content-center">
+ <!--   
     <div class="col-md-2">
       <ul class="list-group list-group-flush">
         <% @categories.each do |category| %>
@@ -10,7 +11,8 @@
           </li>
         <% end %>
       </ul>
-    </div>
+    </div> -->
+    
     <div class="col-md-10">
       <img src="https://via.placeholder.com/1500x600" class="img-fluid" alt="Bannière">
       <div class="text-center mt-3">
@@ -21,6 +23,29 @@
 </div>
 
   <!-- Catégories -->
+<div class="container mt-5">
+  <h2 class="mb-4">Catégories</h2>
+  <div class="row">
+    <% @categories.each do |category| %>
+      <div class="col-md-3 col-sm-4 mb-4">
+        <div class="card h-100 text-center text-dark">
+          <div class="card-body d-flex flex-column justify-content-center text-dark">
+            <%= link_to category_path(category), class: 'stretched-link' do %>
+              <div class="icon mb-2">
+                <!-- Utilisez l'icône spécifiée dans la base de données pour chaque catégorie -->
+                <i class="fas <%= category.icon %> fa-3x"></i>
+              </div>
+              <div class="category-name">
+                <h5 class="card-title"><%= category.name %></h5>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
   <div class="container mt-5">
     <h1 class="mb-5" style="color: #D65830;">
       <span style="color: #D65830; vertical-align: middle;">&#9632;</span> <!-- Carré orange -->
@@ -51,12 +76,6 @@
           <div>Événementiel</div>
         </div>
       </div>
-      <div class="col-md-2 col-sm-4 mb-3">
-        <div class="border border-dark p-3 bg-white">
-          <i class="fas fa-map fa-2x"></i>
-          <div>Cartes Interactives</div>
-        </div>
-      </div>
     </div>
   </div>
 
@@ -66,7 +85,7 @@
       <span style="color: #D65830; vertical-align: middle;">&#9632;</span> <!-- Carré orange -->
       Prochains événements
     </h2>
-    <div class="row">
+    <div class="row justify-content-center">
       <% (1..6).each do |i| %>
         <div class="col-md-2 col-sm-4 mb-3">
           <div class="card">
@@ -87,7 +106,7 @@
       Explorez nos produits
     </h2>
     <div class="row">
-      <% @products.each do |product| %>
+      <% @products.first(8).each do |product| %>
         <div class="col-md-3 col-sm-6 col-6 mb-4">
           <div class="card position-relative">
             <div class="position-absolute top-0 end-0 mt-2 me-2 d-flex flex-column">
@@ -127,20 +146,33 @@
     </div>
   </div>
 
+<hr>
   <!-- banner bottom -->
-  <div class="container mt-5 text-center">
-    <div class="row">
-      <div class="col-md-4">
-        <i class="fas fa-shipping-fast fa-2x"></i>
-        <p>Livraison rapide et gratuite</p>
+   <!--
+  <div class="row justify-content-center mb-5">
+      <div class="col-md-4 col-sm-6 mb-3">
+        <div class="card text-center">
+          <div class="card-body">
+            <i class="fas fa-shipping-fast fa-2x mb-2"></i>
+            <p class="card-text">Livraison rapide et gratuite</p>
+          </div>
+        </div>
       </div>
-      <div class="col-md-4">
-        <i class="fas fa-headset fa-2x"></i>
-        <p>Service client 24/7</p>
+      <div class="col-md-4 col-sm-6 mb-3">
+        <div class="card text-center">
+          <div class="card-body">
+            <i class="fas fa-headset fa-2x mb-2"></i>
+            <p class="card-text">Service client 24/7</p>
+          </div>
+        </div>
       </div>
-      <div class="col-md-4">
-        <i class="fas fa-undo fa-2x"></i>
-        <p>Remboursement garanti</p>
+      <div class="col-md-4 col-sm-6 mb-3">
+        <div class="card text-center">
+          <div class="card-body">
+            <i class="fas fa-undo fa-2x mb-2"></i>
+            <p class="card-text">Remboursement garanti</p>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
+  </div> -->
