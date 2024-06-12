@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_11_213857) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_12_090817) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -110,10 +110,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_11_213857) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "image"
+    t.string "imgur_url"
+    t.string "cloudinary_url"
     t.bigint "category_id"
     t.integer "likes"
     t.decimal "rating"
+    t.string "image"
     t.index ["category_id"], name: "index_products_on_category_id"
   end
 
@@ -144,8 +146,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_11_213857) do
 
   create_table "wishlists", force: :cascade do |t|
     t.bigint "user_id", null: false
+    t.bigint "product_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_wishlists_on_product_id"
     t.index ["user_id"], name: "index_wishlists_on_user_id"
   end
 
@@ -161,5 +165,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_11_213857) do
   add_foreign_key "products", "categories"
   add_foreign_key "wishlist_items", "products"
   add_foreign_key "wishlist_items", "wishlists"
+  add_foreign_key "wishlists", "products"
   add_foreign_key "wishlists", "users"
 end
