@@ -1,5 +1,7 @@
 class ProductsController < ApplicationController
-  before_action :set_product, only: [:show]
+  before_action :set_product, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, except: [:index, :show] # Assurez-vous que l'utilisateur est authentifié pour les actions de création, modification et suppression
+
   def index
     @products = Product.all
   end
@@ -14,18 +16,17 @@ class ProductsController < ApplicationController
   def create
     @product = Product.new(product_params)
     if @product.save
-      redirect_to @product
+      redirect_to @product, notice: "Le produit a été créé avec succès."
     else
       render 'new'
     end
   end
+  
 
   def edit
-    @product = Product.find(params[:id])
   end
 
   def update
-    @product = Product.find(params[:id])
     if @product.update(product_params)
       redirect_to @product
     else
@@ -34,7 +35,6 @@ class ProductsController < ApplicationController
   end
 
   def destroy
-    @product = Product.find(params[:id])
     @product.destroy
     redirect_to products_path
   end
@@ -50,9 +50,12 @@ class ProductsController < ApplicationController
 
  private
 
-  def product_params
-    params.require(:product).permit(:name, :content)
-  end
+ private
+
+ def product_params
+   params.require(:product).permit(:name, :description, :image, :price, :category_id)
+ end
+ 
 
   def set_product
     @product = Product.find(params[:id])

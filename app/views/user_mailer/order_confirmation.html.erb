@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <h1>Merci pour votre commande, <%= @user.first_name %>!</h1>
+    <p>
+      Le paiement ayant été validé, votre commande a bien été prise en compte. Voici les détails de votre commande :
+    </p>
+    <ul>
+      <% @order.order_items.each do |item| %>
+        <li><%= item.product.name %> - <%= item.quantity %> x <%= number_to_currency(item.price) %></li>
+      <% end %>
+    </ul>
+    <p>Total: <%= number_to_currency(@order.total_price) %></p>
+  </body>
+</html>
