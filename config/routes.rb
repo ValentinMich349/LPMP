@@ -2,11 +2,15 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {
     registrations: 'users/registrations'
   }
+  devise_for :admin_users, ActiveAdmin::Devise.config
   resources :products do
     member do
       post 'like'
     end
   end
+
+  ActiveAdmin.routes(self)
+
 
   resources :users, only: [:show, :edit, :update]
   resources :products, only: [:index, :show, :new, :create, :edit, :update, :destroy]

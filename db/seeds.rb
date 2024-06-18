@@ -54,6 +54,7 @@ cities.each do |city_name|
   end
 end
 
+
 # Create products
 categories = Category.all
 
@@ -118,5 +119,4 @@ Store.create!(
   latitude: 43.6108,
   longitude: 3.8767
 )
-
 puts "Seed data created successfully!"
