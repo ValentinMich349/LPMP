@@ -25,4 +25,13 @@ class Product < ApplicationRecord
       "https://via.placeholder.com/300" # Exemple d'URL d'image par défaut (utilisez la vôtre)
     end
   end
+
+  def self.ransackable_associations(auth_object = nil)
+    ["cart_items", "carts", "category", "wishlist_items", "wishlists"]
+  end
+
+  def self.ransackable_attributes(auth_object = nil)
+    ["category_id", "created_at", "description", "id", "id_value", "image", "likes", "name", "price", "rating", "updated_at"]
+  end
+  
 end
