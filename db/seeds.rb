@@ -1,4 +1,5 @@
 require 'faker'
+require 'geocoder'
 
 # Clear existing data
 User.destroy_all
@@ -42,10 +43,15 @@ categories.each do |category|
 end
 
 # Create cities
-cities = ['Paris', 'Lyon', 'Marseille', 'Toulouse', 'Nice', 'Nantes', 'Strasbourg', 'Montpellier', 'Bordeaux', 'Lille']
-
+cities = ['Paris', 'Lyon', 'Marseille', 'Bordeaux', 'Lille']
 cities.each do |city_name|
-  City.create!(name: city_name)
+  results = Geocoder.search(city_name)
+  if results.any?
+    coordinates = results.first.coordinates
+    City.create!(name: city_name, latitude: coordinates[0], longitude: coordinates[1])
+  else
+    puts "Coordinates not found for #{city_name}"
+  end
 end
 
 # Create products
@@ -76,5 +82,41 @@ end
     image_url: Faker::LoremFlickr.image(size: "600x400", search_terms: ['event'])
   )
 end
+
+Store.create!(
+  name: "Boutique Paris",
+  address: "123 Rue de Rivoli",
+  city: "Paris",
+  state: "Île-de-France",
+  zip_code: "75001",
+  phone_number: "+33 1 44 55 66 77",
+  email: "contact@boutiqueparis.fr",
+  latitude: 48.8608,
+  longitude: 2.3377
+)
+
+Store.create!(
+  name: "Magasin de sport",
+  address: "123 Rue des Alpes",
+  city: "Grenoble",
+  state: "Auvergne-Rhône-Alpes",
+  zip_code: "38000",
+  phone_number: "04 76 87 90 10",
+  email: "contact@magasindesport.fr",
+  latitude: 45.1886,
+  longitude: 5.7324
+)
+
+Store.create!(
+  name: "Librairie du Sud",
+  address: "45 Avenue de la Méditerranée",
+  city: "Montpellier",
+  state: "Occitanie",
+  zip_code: "34000",
+  phone_number: "04 67 52 00 20",
+  email: "contact@librairiedusud.fr",
+  latitude: 43.6108,
+  longitude: 3.8767
+)
 
 puts "Seed data created successfully!"

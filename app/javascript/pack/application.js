@@ -1,3 +1,4 @@
+import "@hotwired/turbo-rails"
 import Rails from "@rails/ujs";
 import Turbolinks from "turbolinks";
 import * as ActiveStorage from "@rails/activestorage";
@@ -61,5 +62,19 @@ document.addEventListener("DOMContentLoaded", function() {
       resultsContainer.innerHTML = '';
       resultsContainer.style.display = 'none';
     }
+  });
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+  var map = L.map('map').setView([48.8566, 2.3522], 13);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: 'Map data © OpenStreetMap contributors',
+    maxZoom: 18
+  }).addTo(map);
+
+  var markers = window.markers;  // Assurez-vous que les données des marqueurs sont disponibles globalement
+  markers.forEach(function(marker) {
+    L.marker(marker.latlng).addTo(map).bindPopup(marker.popup);
   });
 });

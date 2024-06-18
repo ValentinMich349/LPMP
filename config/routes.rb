@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   resource :wishlist, only: [:show]
   resources :wishlist_items, only: [:create, :destroy]
   resources :events, only: [:index, :show, :new, :create]
+  resources :locations, only: [:index]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   scope '/checkout' do
@@ -33,7 +34,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
-
+  get 'stores/map', to: 'stores#map'
   get '/about', to: 'static_pages#about'
   get '/contact', to: 'static_pages#contact'
   get 'search', to: 'search#index'

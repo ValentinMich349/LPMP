@@ -82,3 +82,5 @@ gem "dotenv-rails", "~> 3.1"
 gem "dockerfile-rails", ">= 1.6", :group => :development
 
 gem "pg_search", "~> 2.3"
+
+gem "geocoder", "~> 1.8"
