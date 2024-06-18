@@ -83,8 +83,11 @@ gem "dockerfile-rails", ">= 1.6", :group => :development
 
 gem "pg_search", "~> 2.3"
 
+gem "geocoder", "~> 1.8"
+
 gem 'cloudinary'
 
 gem "activeadmin", "~> 3.2"
 
 gem "sassc-rails", "~> 2.1"
+
