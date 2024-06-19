@@ -3,7 +3,12 @@ class ProductsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show] # Assurez-vous que l'utilisateur est authentifié pour les actions de création, modification et suppression
 
   def index
-    @products = Product.all
+    @page = params.fetch(:page, 0).to_i
+    @per_page = 16
+    @total_pages = (Product.count / @per_page.to_f).ceil
+
+    @products = Product.offset(@page * @per_page).limit(@per_page)
+    @categories = Category.all
   end
 
   def show

@@ -15,30 +15,29 @@
 
 
   <div class="container mt-5">
-    <h1 class="mb-5" style="color: #E76F51;">
-      <span style="color: #E76F51; vertical-align: middle;">&#9632;</span> <!-- Carré orange -->
-      Catégories
-    </h1>
-    <div class="row">
-      <% @categories.each do |category| %>
-        <div class="col-md-3 col-sm-4 mb-4">
-          <div class="card h-100 text-center text-dark border-0">
-            <div class="card-body d-flex flex-column justify-content-center text-dark">
-              <%= link_to category_path(category), class: 'stretched-link text-dark' do %>
-                <div class="icon mb-2">
-                  <!-- Utilisez l'icône spécifiée dans la base de données pour chaque catégorie -->
-                  <i class="fas fa-<%= category.icon %> fa-3x text-dark"></i>
-                </div>
-                <div class="category-name">
-                  <h5 class="card-title"><%= category.name %></h5>
-                </div>
-              <% end %>
-            </div>
+  <h1 class="mb-5" style="color: #E76F51;">
+    <span style="color: #E76F51; vertical-align: middle;">&#9632;</span> <!-- Carré orange -->
+    Catégories
+  </h1>
+  <div class="row">
+    <% @categories.each do |category| %>
+      <div class="col-md-3 col-sm-4 mb-4">
+        <div class="card h-100 text-center text-dark border-0" >
+          <div class="card-body d-flex flex-column justify-content-center text-dark">
+            <%= link_to category_path(category), class: 'stretched-link text-dark' do %>
+              <div class="icon mb-2">
+                <i class="fas fa-<%= category.icon %> fa-3x" style="color: #2A9D8F;"></i>
+              </div>
+              <div class="category-name">
+                <h5 class="card-title" style="color: #264653;"><%= category.name %></h5>
+              </div>
+            <% end %>
           </div>
         </div>
-      <% end %>
-    </div>
+      </div>
+    <% end %>
   </div>
+</div>
 
 
   <!-- Prochains événements -->
@@ -58,7 +57,7 @@
                 <p class="card-text text-muted"><%= event.description.truncate(100) %></p>
                 <div class="mb-2">
                   <span class="badge" style="background-color: #E9C46A;"><i class="fas fa-calendar-alt"></i> <%= event.start.strftime("%d %b %Y") %> - <%= event.end.strftime("%d %b %Y") %></span>
-                  <span class="badge" style="background-color: #2A9D8F;"><i class="fas fa-map-marker-alt"></i> <%= event.localisation %></span>
+                  <span class="badge" style="background-color: #2A9D8F;"><i class="fas fa-map-marker-alt"></i> <%= event.city.name %></span>
                 </div>
                 <p class="card-text"><strong>Prix:</strong> <%= number_to_currency(event.price, unit: "€") %></p>
                 <%= link_to 'Voir Détails', event_path(event), class: 'btn btn-outline-primary mt-auto' %>

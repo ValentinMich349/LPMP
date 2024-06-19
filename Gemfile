@@ -91,3 +91,5 @@ gem "activeadmin", "~> 3.2"
 
 gem "sassc-rails", "~> 2.1"
 
+
+gem "aws-sdk-s3", "~> 1.152", :require => false

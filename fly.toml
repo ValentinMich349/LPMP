@@ -1,16 +1,16 @@
-# fly.toml app configuration file generated for lpmp on 2024-06-07T11:29:45+02:00
+# fly.toml app configuration file generated for lpmp on 2024-06-18T16:48:20+02:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
 app = 'lpmp'
-primary_region = 'cdg'
+primary_region = 'sea'
 console_command = '/rails/bin/rails console'
 
 [build]
 
-[deploy]
-  release_command = './bin/rails db:prepare'
+[experimental]
+  auto_stop_machines = false
 
 [http_service]
   internal_port = 3000
@@ -25,6 +25,17 @@ console_command = '/rails/bin/rails console'
   cpu_kind = 'shared'
   cpus = 1
 
-[[statics]]
-  guest_path = '/rails/public'
-  url_prefix = '/'
+[env]
+  PORT = "3000"
+
+[[services]]
+  internal_port = 3000
+  protocol = "tcp"
+
+  [[services.ports]]
+    handlers = ["http"]
+    port = 80
+
+  [[services.ports]]
+    handlers = ["tls", "http"]
+    port = 443
