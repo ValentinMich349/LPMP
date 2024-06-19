@@ -1,205 +1,76 @@
 <div class="container-fluid pl-5">
     <div class="row">
-        <div class="col">
-            <h5 class="text-left mt-0">Modèles 3D</h5>
-            <h5 class="text-left mt-0">Modèles 2D</h5>
-            <h5 class="text-left mt-0">Accessoires</h5>
-            <h5 class="text-left mt-0">Événementiel</h5>
-            <h5 class="text-left mt-0">Carte Interactive</h5>
-            <h5 class="text-left mt-0"><%= link_to "Créer un produit", new_product_path %></h5>
-        </div>
-        <div class="col-md-11 d-flex justify-content-center border-left">
+        <div class="col-md-10 d-flex justify-content-center">
             <div class="image-container">
-                <img src="https://via.placeholder.com/1500x600" alt="Image">
+                <img src="https://via.placeholder.com/1500x600" alt="Image" class="img-fluid">
             </div>
         </div>
     </div>
 </div>
 
-
-
-
-<div class="filter-form text-center">
-    <h1 class="mb-5" style="color: #D65830; font-size: 1.5rem; text-align: left; margin-left: 20px;">
-        <span class="mr-0" style="color: #D65830; vertical-align: middle;">&#9632;</span> <!-- Carré orange -->
-        Catégories
-    </h1>
-    <h2 class="mb-5">Choisir par Catégorie</h2>
-    <form>
-    <div class="row justify-content-center">
-    <div class="col-md-2 col-sm-4">
-        <div class="square border border-dark p-5 mb-3 bg-white" onclick="toggleSelection(this)">
-            <i class="fas fa-cube fa-2x"></i>
-            <div>Modèles 3D</div>
+ <div class="container mt-5">
+  <h1 class="mb-5" style="color: #E76F51;">
+    <span style="color: #E76F51; vertical-align: middle;">&#9632;</span> <!-- Carré orange -->
+    Catégories
+  </h1>
+  <div class="row">
+    <% @categories.each do |category| %>
+      <div class="col-md-3 col-sm-4 mb-4">
+        <div class="card h-100 text-center text-dark border-0" >
+          <div class="card-body d-flex flex-column justify-content-center text-dark">
+            <%= link_to category_path(category), class: 'stretched-link text-dark' do %>
+              <div class="icon mb-2">
+                <i class="fas fa-<%= category.icon %> fa-3x" style="color: #2A9D8F;"></i>
+              </div>
+              <div class="category-name">
+                <h5 class="card-title" style="color: #264653;"><%= category.name %></h5>
+              </div>
+            <% end %>
+          </div>
         </div>
-    </div>
-    <div class="col-md-2 col-sm-4">
-        <div class="square border border-dark p-5 mb-3 bg-white" onclick="toggleSelection(this)">
-            <i class="fas fa-chess-knight fa-2x"></i>
-            <div>Modèles Chibi</div>
-        </div>
-    </div>
-    <div class="col-md-2 col-sm-4">
-        <div class="square border border-dark p-5 mb-3 bg-white" onclick="toggleSelection(this)">
-            <i class="fas fa-glasses fa-2x"></i>
-            <div>Accessoires</div>
-        </div>
-    </div>
-    <div class="col-md-2 col-sm-4">
-        <div class="square border border-dark p-5 mb-3 bg-white" onclick="toggleSelection(this)">
-            <i class="fas fa-calendar-alt fa-2x"></i>
-            <div>Événementiel</div>
-        </div>
-    </div>
-    <div class="col-md-2 col-sm-4">
-        <div class="square border border-dark p-5 mb-3 bg-white" onclick="toggleSelection(this)">
-            <i class="fas fa-map fa-2x"></i>
-            <div>Cartes Interactives</div>
-        </div>
-    </div>
+      </div>
+    <% end %>
+  </div>
 </div>
-<button type="submit" class="btn btn-primary mt-3">Filtrer</button>
-
 
 
 <h2 class="mb-5" style="color: #D65830; font-size: 1.5rem; text-align: left; margin-left: 20px;">
-        <span class="mr-0" style="color: #D65830; vertical-align: middle;">&#9632;</span> <!-- Carré orange -->
-        Nos Produits
-    </h2>
+    <span class="mr-0" style="color: #D65830; vertical-align: middle;">&#9632;</span> <!-- Carré orange -->
+    Nos Produits
+</h2>
 <div class="row justify-content-center">
-    <!-- Exemple de Produit 1 -->
-    <div class="col-md-3 col-sm-6 col-6 mb-4">
-        <div class="card position-relative" style="width: 100%; height: auto;">
-            <div class="position-absolute top-0 end-0 mt-2 me-2 d-flex flex-column">
-                <i class="fa fa-heart mb-1"></i> <!-- Icône de cœur -->
-                <i class="fa fa-eye"></i> <!-- Icône d'œil -->
-            </div>
-            <img src="https://via.placeholder.com/150" class="card-img-top" alt="Exemple Produit" style="width: 100%; height: auto;">
-            <div class="card-body">
-                <h5 class="card-title">Produit 1</h5>
-                <p class="card-text">Description du Produit 1.</p>
-                <p class="card-text">★★★★★ (5 étoiles)</p>
-                <a href="<%= products_path %>/1" class="btn btn-primary btn-sm">Acheter</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- Exemple de Produit 2 -->
-    <div class="col-md-3 col-sm-6 col-6 mb-4">
-        <div class="card position-relative" style="width: 100%; height: auto;">
-            <div class="position-absolute top-0 end-0 mt-2 me-2 d-flex flex-column">
-                <i class="fa fa-heart mb-1"></i> <!-- Icône de cœur -->
-                <i class="fa fa-eye"></i> <!-- Icône d'œil -->
-            </div>
-            <img src="https://via.placeholder.com/150" class="card-img-top" alt="Exemple Produit" style="width: 100%; height: auto;">
-            <div class="card-body">
-                <h5 class="card-title">Produit 1</h5>
-                <p class="card-text">Description du Produit 1.</p>
-                <p class="card-text">★★★★★ (5 étoiles)</p>
-                <a href="<%= products_path %>/1" class="btn btn-primary btn-sm">Acheter</a>
+    <% @products.each do |product| %>
+        <div class="col-md-3 col-sm-6 col-6 mb-4">
+            <div class="card position-relative" style="width: 100%; height: auto;">
+                <div class="position-absolute top-0 end-0 mt-2 me-2 d-flex flex-column">
+                    <i class="fa fa-heart mb-1" style="color: #E76F51;"></i> <!-- Icône de cœur -->
+                    <i class="fa fa-eye" style="color: #2A9D8F;"></i> <!-- Icône d'œil -->
+                </div>
+                <%= image_tag product.image, class: 'card-img-top', alt: product.name, style: "width: 100%; height: auto;" %>
+                <div class="card-body">
+                    <h5 class="card-title"><%= product.name %></h5>
+                    <p class="card-text"><%= truncate(product.description, length: 100) %></p>
+                    <p class="card-text">★★★★★ (5 étoiles)</p>
+                    <%= link_to 'Acheter', product_path(product), class: 'btn btn-primary btn-sm', style: 'background-color: #2A9D8F; border-color: #2A9D8F;' %>
+                </div>
             </div>
         </div>
-    </div>
-
-    <!-- Exemple de Produit 3 -->
-    <div class="col-md-3 col-sm-6 col-6 mb-4">
-        <div class="card position-relative" style="width: 100%; height: auto;">
-            <div class="position-absolute top-0 end-0 mt-2 me-2 d-flex flex-column">
-                <i class="fa fa-heart mb-1"></i> <!-- Icône de cœur -->
-                <i class="fa fa-eye"></i> <!-- Icône d'œil -->
-            </div>
-            <img src="https://via.placeholder.com/150" class="card-img-top" alt="Exemple Produit" style="width: 100%; height: auto;">
-            <div class="card-body">
-                <h5 class="card-title">Produit 1</h5>
-                <p class="card-text">Description du Produit 1.</p>
-                <p class="card-text">★★★★★ (5 étoiles)</p>
-                <a href="<%= products_path %>/1" class="btn btn-primary btn-sm">Acheter</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- Exemple de Produit 4 -->
-    <div class="col-md-3 col-sm-6 col-6 mb-4">
-        <div class="card position-relative" style="width: 100%; height: auto;">
-            <div class="position-absolute top-0 end-0 mt-2 me-2 d-flex flex-column">
-                <i class="fa fa-heart mb-1"></i> <!-- Icône de cœur -->
-                <i class="fa fa-eye"></i> <!-- Icône d'œil -->
-            </div>
-            <img src="https://via.placeholder.com/150" class="card-img-top" alt="Exemple Produit" style="width: 100%; height: auto;">
-            <div class="card-body">
-                <h5 class="card-title">Produit 1</h5>
-                <p class="card-text">Description du Produit 1.</p>
-                <p class="card-text">★★★★★ (5 étoiles)</p>
-                <a href="<%= products_path %>/1" class="btn btn-primary btn-sm">Acheter</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- Exemple de Produit 5 -->
-    <div class="col-md-3 col-sm-6 col-6 mb-4">
-        <div class="card position-relative" style="width: 100%; height: auto;">
-            <div class="position-absolute top-0 end-0 mt-2 me-2 d-flex flex-column">
-                <i class="fa fa-heart mb-1"></i> <!-- Icône de cœur -->
-                <i class="fa fa-eye"></i> <!-- Icône d'œil -->
-            </div>
-            <img src="https://via.placeholder.com/150" class="card-img-top" alt="Exemple Produit" style="width: 100%; height: auto;">
-            <div class="card-body">
-                <h5 class="card-title">Produit 1</h5>
-                <p class="card-text">Description du Produit 1.</p>
-                <p class="card-text">★★★★★ (5 étoiles)</p>
-                <a href="<%= products_path %>/1" class="btn btn-primary btn-sm">Acheter</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- Exemple de Produit 6 -->
-    <div class="col-md-3 col-sm-6 col-6 mb-4">
-        <div class="card position-relative" style="width: 100%; height: auto;">
-            <div class="position-absolute top-0 end-0 mt-2 me-2 d-flex flex-column">
-                <i class="fa fa-heart mb-1"></i> <!-- Icône de cœur -->
-                <i class="fa fa-eye"></i> <!-- Icône d'œil -->
-            </div>
-            <img src="https://via.placeholder.com/150" class="card-img-top" alt="Exemple Produit" style="width: 100%; height: auto;">
-            <div class="card-body">
-                <h5 class="card-title">Produit 1</h5>
-                <p class="card-text">Description du Produit 1.</p>
-                <p class="card-text">★★★★★ (5 étoiles)</p>
-                <a href="<%= products_path %>/1" class="btn btn-primary btn-sm">Acheter</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- Exemple de Produit 7 -->
-    <div class="col-md-3 col-sm-6 col-6 mb-4">
-        <div class="card position-relative" style="width: 100%; height: auto;">
-            <div class="position-absolute top-0 end-0 mt-2 me-2 d-flex flex-column">
-                <i class="fa fa-heart mb-1"></i> <!-- Icône de cœur -->
-                <i class="fa fa-eye"></i> <!-- Icône d'œil -->
-            </div>
-            <img src="https://via.placeholder.com/150" class="card-img-top" alt="Exemple Produit" style="width: 100%; height: auto;">
-            <div class="card-body">
-                <h5 class="card-title">Produit 1</h5>
-                <p class="card-text">Description du Produit 1.</p>
-                <p class="card-text">★★★★★ (5 étoiles)</p>
-                <a href="<%= products_path %>/1" class="btn btn-primary btn-sm">Acheter</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- Exemple de Produit 8 -->
-    <div class="col-md-3 col-sm-6 col-6 mb-4">
-        <div class="card position-relative" style="width: 100%; height: auto;">
-            <div class="position-absolute top-0 end-0 mt-2 me-2 d-flex flex-column">
-                <i class="fa fa-heart mb-1"></i> <!-- Icône de cœur -->
-                <i class="fa fa-eye"></i> <!-- Icône d'œil -->
-            </div>
-            <img src="https://via.placeholder.com/150" class="card-img-top" alt="Exemple Produit" style="width: 100%; height: auto;">
-            <div class="card-body">
-                <h5 class="card-title">Produit 1</h5>
-                <p class="card-text">Description du Produit 1.</p>
-                <p class="card-text">★★★★★ (5 étoiles)</p>
-                <a href="<%= products_path %>/1" class="btn btn-primary btn-sm">Acheter</a>
-            </div>
-        </div>
-    </div>
+    <% end %>
 </div>
+
+<div class="d-flex justify-content-center">
+  <ul class="pagination">
+    <li class="page-item <%= 'disabled' if @page == 0 %>">
+      <%= link_to 'Previous', products_path(page: @page - 1), class: 'page-link', style: "background-color: #264653; color: white; border-color: #264653;" %>
+    </li>
+    <% (0...@total_pages).each do |i| %>
+      <li class="page-item <%= 'active' if @page == i %>">
+        <%= link_to i + 1, products_path(page: i), class: 'page-link', style: "background-color: #{ @page == i ? '#E76F51' : '#2A9D8F' }; color: white; border-color: #{ @page == i ? '#E76F51' : '#2A9D8F' };" %>
+      </li>
+    <% end %>
+    <li class="page-item <%= 'disabled' if @page >= @total_pages - 1 %>">
+      <%= link_to 'Next', products_path(page: @page + 1), class: 'page-link', style: "background-color: #264653; color: white; border-color: #264653;" %>
+    </li>
+  </ul>
+</div>
+

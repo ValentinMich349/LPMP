@@ -1,2 +1,2 @@
-class Store < ApplicationRecord
+class Location < ApplicationRecord
 end
