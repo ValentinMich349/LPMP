@@ -12,87 +12,89 @@
 
   <div class="row">
     <div class="col-md-6">
-    <!-- Miniatures -->
-    <div class="row">
-      <div class="col-md-3">
-        <img src="https://i5.walmartimages.com/asr/fde41f79-fd6f-4590-bd5f-39be80c3f6b5.840cd61eb5eeb099a10b4e258e779aa7.jpeg?odnWidth=1000&odnHeight=1000&odnBg=ffffff" class="img-fluid rounded mb-2" alt="Miniature 1">
-        <img src="https://i5.walmartimages.com/asr/fde41f79-fd6f-4590-bd5f-39be80c3f6b5.840cd61eb5eeb099a10b4e258e779aa7.jpeg?odnWidth=1000&odnHeight=1000&odnBg=ffffff" class="img-fluid rounded mb-2" alt="Miniature 2">
-        <img src="https://i5.walmartimages.com/asr/fde41f79-fd6f-4590-bd5f-39be80c3f6b5.840cd61eb5eeb099a10b4e258e779aa7.jpeg?odnWidth=1000&odnHeight=1000&odnBg=ffffff" class="img-fluid rounded mb-2" alt="Miniature 3">
+      <!-- Miniatures -->
+      <div class="row">
+        <div class="col-md-3">
+            <img src="<%= @product.image %>" class="img-fluid rounded mb-2" alt="Miniature ">
+        </div>
+        <div class="col-md-9">
+          <!-- Image du produit -->
+          <img src="<%= @product.image %>" class="img-fluid rounded" alt="Image du produit">
+        </div>
       </div>
-      <div class="col-md-9">
-        <!-- Image du produit -->
-        <img src="https://i5.walmartimages.com/asr/fde41f79-fd6f-4590-bd5f-39be80c3f6b5.840cd61eb5eeb099a10b4e258e779aa7.jpeg?odnWidth=1000&odnHeight=1000&odnBg=ffffff" class="img-fluid rounded" alt="Image du produit">
-      </div>
-    </div>
     </div>
     <div class="col-md-6">
       <!-- Titre du produit -->
       <h1><%= @product.name %></h1>
       <!-- Étoiles pour représenter la note -->
       <div class="rating">
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star"></span>
-        <span class="fa fa-star"></span>
+        <% 5.times do |i| %>
+          <span class="fa fa-star <%= 'checked' if i < @product.rating %>"></span>
+        <% end %>
       </div>
       <!-- Description du produit -->
       <p><%= @product.description %></p>
       <!-- Prix du produit -->
       <p><strong>Prix: $<%= @product.price %></strong></p>
-      <!-- Spécifications techniques -->
-      <h4>Spécifications Techniques</h4>
-      <ul>
-        <li>Matériau: Métal</li>
-        <li>Taille: 10cm x 15cm</li>
-        <li>Poids: 500g</li>
-      </ul>
       <!-- Sélection du nombre de produits -->
       <div class="mt-4">
-      <label for="product-quantity">Choisissez le nombre de produits:</label>
-      <div class="input-group" style="width: auto; display: flex; align-items: center;">
-        <button class="btn btn-outline-secondary" type="button" id="button-minus" style="background-color: grey; color: white;">-</button>
-        <input type="number" id="product-quantity" value="1" min="1" max="5" style="width: 60px; text-align: center; margin: 0 5px;">
-        <button class="btn btn-outline-secondary" type="button" id="button-plus" style="background-color: #D65830; color: white;">+</button>
-        <%= button_to 'Ajouter à la Wishlist', wishlist_items_path(product_id: @product.id), method: :post %>
-
+        <label for="product-quantity">Choisissez le nombre de produits:</label>
+        <div class="input-group" style="width: auto; display: flex; align-items: center;">
+          <button class="btn btn-outline-secondary" type="button" id="button-minus" style="background-color: grey; color: white;">-</button>
+          <input type="number" id="product-quantity" value="1" min="1" max="5" style="width: 60px; text-align: center; margin: 0 5px;">
+          <button class="btn btn-outline-secondary" type="button" id="button-plus" style="background-color: #D65830; color: white;">+</button>
+        </div>
       </div>
-    </div>
 
-<script>
-  document.getElementById('button-minus').addEventListener('click', function () {
-    var input = document.getElementById('product-quantity');
-    var value = parseInt(input.value, 10);
-    if (value > 1) {
-      input.value = value - 1;
-    }
-  });
+      <script>
+        document.getElementById('button-minus').addEventListener('click', function () {
+          var input = document.getElementById('product-quantity');
+          var value = parseInt(input.value, 10);
+          if (value > 1) {
+            input.value = value - 1;
+          }
+        });
 
-  document.getElementById('button-plus').addEventListener('click', function () {
-    var input = document.getElementById('product-quantity');
-    var value = parseInt(input.value, 10);
-    if (value < 5) {
-      input.value = value + 1;
-    }
-  });
-</script>
+        document.getElementById('button-plus').addEventListener('click', function () {
+          var input = document.getElementById('product-quantity');
+          var value = parseInt(input.value, 10);
+          if (value < 5) {
+            input.value = value + 1;
+          }
+        });
+
+        function addToCart(productId) {
+          var quantity = document.getElementById('product-quantity').value;
+          var form = document.createElement('form');
+          form.method = 'POST';
+          form.action = '<%= cart_cart_items_path %>';
+          form.innerHTML = `<input name="product_id" value="${productId}">
+                            <input name="quantity" value="${quantity}">
+                            <input name="_method" value="post">
+                            <input name="authenticity_token" value="<%= form_authenticity_token %>">`;
+          document.body.appendChild(form);
+          form.submit();
+        }
+      </script>
 
       <% if user_signed_in? %>
         <!-- Bouton d'ajout au panier -->
-        <%= link_to 'Ajouter au panier', cart_cart_items_path(product_id: @product.id), method: :post, class: 'btn btn-primary' %>
+        <button onclick="addToCart(<%= @product.id %>)" class="btn btn-primary" style="background-color: #2A9D8F; border-color: #2A9D8F;">Ajouter au panier</button>
+        <%= button_to 'Ajouter à la Wishlist', wishlist_items_path(product_id: @product.id), method: :post, class: 'btn btn-secondary' %>
       <% else %>
         <p>Veuillez <%= link_to 'vous connecter', new_user_session_path %> ou <%= link_to 'vous inscrire', new_user_registration_path %> pour ajouter des articles au panier.</p>
       <% end %>
     </div>
   </div>
+
   <!-- Cadre de livraison gratuite et retour -->
-      <div class="mr-3 border rounded p-3 shadow" style="max-width: 300px;">
-        <h5 class="mb-3">Livraison gratuite</h5>
-        <p><i class="fa fa-truck me-2"></i> Entrer votre code postal pour voir les disponibilités</p>
-        <hr>
-        <p class="mb-3"><i class="fa fa-undo me-2"></i> Retourner un article</p>
-        <p>Free 30 Days Delivery Returns. Details</p>
-      </div>
+  <div class="mr-3 border rounded p-3 shadow" style="max-width: 300px;">
+    <h5 class="mb-3">Livraison gratuite</h5>
+    <p><i class="fa fa-truck me-2"></i> Entrer votre code postal pour voir les disponibilités</p>
+    <hr>
+    <p class="mb-3"><i class="fa fa-undo me-2"></i> Retourner un article</p>
+    <p>Free 30 Days Delivery Returns. Details</p>
+  </div>
 
   <!-- Section de promotion -->
   <div class="row mt-5">
@@ -106,65 +108,23 @@
   <!-- Titre "Produits similaires" -->
   <h3 class="mb-4" style="color: #D65830;">Produits similaires</h3>
 
-  <!-- Liste de produits similaires -->
+<!-- Liste de produits similaires -->
   <div class="row mt-5">
-    <div class="col-md-3">
-      <div class="card position-relative">
-        <img src="image_produit_1.jpg" class="card-img-top" alt="Image produit 1">
-        <div class="position-absolute top-0 end-0 m-2">
-          <i class="fa fa-heart d-block mb-2"></i> <!-- Icône de cœur -->
-          <i class="fa fa-eye d-block"></i> <!-- Icône d'œil -->
-        </div>
-        <div class="card-body">
-          <h5 class="card-title">Nom du Produit 1</h5>
-          <p class="card-text">Description courte du produit 1.</p>
-          <a href="#" class="btn btn-primary">Voir le produit</a>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3">
-      <div class="card position-relative">
-        <img src="image_produit_2.jpg" class="card-img-top" alt="Image produit 2">
-        <div class="position-absolute top-0 end-0 m-2">
-          <i class="fa fa-heart d-block mb-2"></i> <!-- Icône de cœur -->
-          <i class="fa fa-eye d-block"></i> <!-- Icône d'œil -->
-        </div>
-        <div class="card-body">
-          <h5 class="card-title">Nom du Produit 2</h5>
-          <p class="card-text">Description courte du produit 2.</p>
-          <a href="#" class="btn btn-primary">Voir le produit</a>
+    <% @similar_products.each do |similar_product| %>
+      <div class="col-md-3">
+        <div class="card position-relative">
+          <%= image_tag similar_product.image, class: 'card-img-top', alt: similar_product.name %>
+          <div class="position-absolute top-0 end-0 m-2">
+            <i class="fa fa-heart d-block mb-2" style="color: #E76F51;"></i> <!-- Icône de cœur -->
+            <i class="fa fa-eye d-block" style="color: #2A9D8F;"></i> <!-- Icône d'œil -->
+          </div>
+          <div class="card-body">
+            <h5 class="card-title"><%= similar_product.name %></h5>
+            <p class="card-text"><%= truncate(similar_product.description, length: 100) %></p>
+            <%= link_to 'Voir le produit', product_path(similar_product), class: 'btn btn-primary', style: 'background-color: #2A9D8F; border-color: #2A9D8F;' %>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="col-md-3">
-      <div class="card position-relative">
-        <img src="image_produit_3.jpg" class="card-img-top" alt="Image produit 3">
-        <div class="position-absolute top-0 end-0 m-2">
-          <i class="fa fa-heart d-block mb-2"></i> <!-- Icône de cœur -->
-          <i class="fa fa-eye d-block"></i> <!-- Icône d'œil -->
-        </div>
-        <div class="card-body">
-          <h5 class="card-title">Nom du Produit 3</h5>
-          <p class="card-text">Description courte du produit 3.</p>
-          <a href="#" class="btn btn-primary">Voir le produit</a>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3">
-      <div class="card position-relative">
-        <img src="image_produit_4.jpg" class="card-img-top" alt="Image produit 4">
-        <div class="position-absolute top-0 end-0 m-2">
-          <i class="fa fa-heart d-block mb-2"></i> <!-- Icône de cœur -->
-          <i class="fa fa-eye d-block"></i> <!-- Icône d'œil -->
-        </div>
-        <div class="card-body">
-          <h5 class="card-title">Nom du Produit 4</h5>
-          <p class="card-text">Description courte du produit 4.</p>
-          <a href="#" class="btn btn-primary">Voir le produit</a>
-        </div>
-      </div>
-    </div>
+    <% end %>
   </div>
-
-  
 </div>

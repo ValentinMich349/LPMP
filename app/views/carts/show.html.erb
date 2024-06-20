@@ -2,7 +2,7 @@
   <h1 class="mb-4" style="color: #D65830;">Votre Panier</h1>
   <% if @cart.cart_items.any? %>
     <div class="table-responsive">
-      <table class="table table">
+      <table class="table">
         <thead>
           <tr>
             <th>Produit</th>
@@ -17,52 +17,66 @@
             <tr>
               <td><%= item.product.name %></td>
               <td><%= number_to_currency(item.product.price) %></td>
-              <td>
-                <%= form_for [@cart, item], html: { method: :put } do |f| %>
-                  <%= f.number_field :quantity, value: item.quantity, min: 1, class: 'form-control' %>
-                <% end %>
-              </td>
+              <td><%= item.quantity %></td>
               <td><%= number_to_currency(item.product.price * item.quantity) %></td>
               <td>
-                <%= link_to '<i class="fas fa-trash-alt"></i>'.html_safe, cart_cart_item_path(item), method: :delete, class: 'btn btn-sm btn-danger', style: 'background-color: #D65830; border-color: #D65830;', title: 'Supprimer'  %>
+                <%= link_to '<i class="fas fa-trash-alt"></i>'.html_safe, cart_cart_item_path(item), method: :delete, class: 'btn btn-sm btn-danger', style: 'background-color: #D65830; border-color: #D65830;', title: 'Supprimer' %>
               </td>
             </tr>
           <% end %>
         </tbody>
       </table>
+      <div class="text-left mb-3">
+        <%= link_to 'Vider le panier', cart_path, method: :delete, class: 'btn btn-danger', style: 'background-color: #D65830; border-color: #D65830; width: 20%;' %>
+      </div>
     </div>
-    <!-- Bouton "Continuer les achats" -->
-    <div class="text-left ">
-        <%= link_to "Mettre à jour", "#", class: "btn btn-primary", style: 'background-color: grey; border-color: #D65830; width: 20%;' %>
-        <%= link_to 'Continuer les achats', products_path, class: 'btn btn-primary', style: 'background-color: #D65830; border-color: #D65830;' %>
-    </div>
-      
-    <!-- Espace pour "Appliquer le coupon" et "Total Panier" -->
+
     <div class="row mt-2">
       <div class="col-md-2">
         <h4 style="margin-top: 10px;">Code coupon</h4>
-        <input type="text" class="form-control" style="width: 100%;">
-        <button class="btn btn-primary mt-3" style="background-color: grey; border-color: #D65830; width: 100%;">Appliquer le coupon</button>
+        <%= form_with url: apply_coupon_cart_path, method: :post, local: true do %>
+          <%= text_field_tag :coupon_code, nil, class: "form-control", style: "width: 100%;" %>
+          <%= submit_tag "Appliquer le coupon", class: "btn btn-primary mt-3", style: 'background-color: grey; border-color: #D65830; width: 100%;' %>
+        <% end %>
       </div>
       <div class="col-md-3 offset-md-7">
         <h4 style="margin-top: 10px;">Total Panier</h4>
         <ul class="list-unstyled">
-          <li style="border-bottom: 1px solid #D65830; padding: 5px 0;">Sous-total: <%= number_to_currency(@cart.cart_items.sum { |item| item.product.price * item.quantity }) %></li>
+          <li style="border-bottom: 1px solid #D65830; padding: 5px 0;">Sous-total: <%= number_to_currency(@cart.total) %></li>
           <li style="border-bottom: 1px solid #D65830; padding: 5px 0;">Livraison: Gratuit</li>
-          <li style="padding: 5px 0;">Total: <%= number_to_currency(@cart.cart_items.sum { |item| item.product.price * item.quantity }) %></li>
+          <% if @cart.coupon %>
+            <li style="border-bottom: 1px solid #D65830; padding: 5px 0;">Réduction (<%= @cart.coupon.code %>): -<%= number_to_currency(@cart.coupon.discount) %></li>
+          <% end %>
+          <li style="padding: 5px 0;">Total: <%= number_to_currency(@cart.total_with_discount) %></li>
         </ul>
-        <!-- Bouton "Procéder au paiement" -->
         <div class="text-left mt-3" style="border-top: 1px solid #D65830; padding-top: 10px;">
-          <%= button_to "Procéder au paiement", checkout_create_path(total: @cart.total, event_id: @cart.id), class: "btn btn-primary", style: 'background-color: #D65830; border-color: #D65830; width: 100%;', data: { turbo: false } %>
-        </div>
-        <!-- Bouton "Mettre à jour" -->
-        <div class="text-left mt-3  element mb-5">
-          
+          <%= button_to "Procéder au paiement", checkout_create_path(total: @cart.total_with_discount, event_id: @cart.id), class: "btn btn-primary", style: 'background-color: #D65830; border-color: #D65830; width: 100%;', data: { turbo: false } %>
         </div>
       </div>
     </div>
   <% else %>
-    <p class="lead" style="color: #D65830;">Votre panier est vide.</p>
-    <%= link_to 'Voir les produits', products_path, class: 'btn btn-primary', style: 'background-color: #D65830; border-color: #D65830;' %>
+    <div class="empty-cart text-center">
+      <h2 class="display-4" style="color: #D65830;">Votre panier est vide</h2>
+      <p class="lead mb-4" style="color: #2A9D8F;">Découvrez nos produits les plus aimés et trouvez ce que vous cherchez.</p>
+      <%= link_to 'Voir les produits', products_path, class: 'btn btn-lg btn-primary mb-4', style: 'background-color: #D65830; border-color: #D65830;' %>
+
+      <h3 class="mb-4" style="color: #264653;">Produits les plus aimés</h3>
+      <div class="row justify-content-center">
+        <% @top_liked_products.each do |product| %>
+          <div class="col-md-2 col-sm-4 mb-4">
+            <div class="card h-100 text-center text-dark border-0">
+              <%= link_to product_path(product), class: 'stretched-link text-dark' do %>
+                <div class="card-body d-flex flex-column justify-content-center text-dark">
+                  <%= image_tag product.image, class: 'card-img-top mb-2', alt: product.name %>
+                  <h5 class="card-title" style="color: #E76F51;"><%= product.name %></h5>
+                  <p class="card-text" style="color: #2A9D8F;">★★★★★ (5 étoiles)</p>
+                  <p class="card-text"><%= number_to_currency(product.price) %></p>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
   <% end %>
 </div>

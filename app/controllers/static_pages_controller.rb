@@ -3,6 +3,17 @@ class StaticPagesController < ApplicationController
     def about
     end
 
+    def privacy_policy
+    end
+  
+    def terms_of_service
+    end
+  
+    def faq
+    end
+  
+    def contact
+    end
 
     def create_contact
       @message = Message.new(message_params)
