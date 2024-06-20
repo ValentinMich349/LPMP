@@ -16,7 +16,8 @@ Rails.application.routes.draw do
   resources :products, only: [:index, :show, :new, :create, :edit, :update, :destroy]
   resources :cancellations, only: [:index]
   resources :reviews, only: [:index]
-  resource :cart, only: [:show] do
+  resource :cart, only: [:show, :destroy, :update] do
+    post 'apply_coupon', on: :collection
     resources :cart_items, only: [:create, :update, :destroy]
   end
   resources :orders, only: [:new, :create, :index]
@@ -34,14 +35,18 @@ Rails.application.routes.draw do
   end
 
   root 'home#index'
+
   
 
   # Defines the root path route ("/")
   # root "posts#index"
   get 'stores/map', to: 'stores#map'
   get '/about', to: 'static_pages#about'
-  get '/contact', to: 'static_pages#contact'
   get 'search', to: 'search#index'
+  get 'privacy_policy', to: 'static_pages#privacy_policy', as: 'privacy_policy'
+  get 'terms_of_service', to: 'static_pages#terms_of_service', as: 'terms_of_service'
+  get 'faq', to: 'static_pages#faq', as: 'faq'
+  get 'contact', to: 'static_pages#contact', as: 'contact'
 
 
 end

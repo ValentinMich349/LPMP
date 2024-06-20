@@ -26,6 +26,10 @@ class Product < ApplicationRecord
     end
   end
 
+  def self.random_products_from_same_category(product)
+    where(category: product.category).where.not(id: product.id).order("RANDOM()").limit(8)
+  end
+
   def self.ransackable_associations(auth_object = nil)
     ["cart_items", "carts", "category", "wishlist_items", "wishlists"]
   end

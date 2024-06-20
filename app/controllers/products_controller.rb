@@ -12,6 +12,7 @@ class ProductsController < ApplicationController
   end
 
   def show
+    @similar_products = Product.random_products_from_same_category(@product) 
   end
 
   def new

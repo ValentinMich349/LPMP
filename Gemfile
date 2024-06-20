@@ -93,3 +93,5 @@ gem "sassc-rails", "~> 2.1"
 
 
 gem "aws-sdk-s3", "~> 1.152", :require => false
+
+gem "i18n", "~> 1.14"

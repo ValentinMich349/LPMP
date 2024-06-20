@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_19_061303) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_19_143603) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -82,6 +82,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_19_061303) do
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "coupon_id"
     t.index ["user_id"], name: "index_carts_on_user_id"
   end
 
@@ -98,6 +99,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_19_061303) do
     t.datetime "updated_at", null: false
     t.float "latitude"
     t.float "longitude"
+  end
+
+  create_table "coupons", force: :cascade do |t|
+    t.string "code", null: false
+    t.decimal "discount", precision: 10, scale: 2, null: false
+    t.datetime "valid_until"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["code"], name: "index_coupons_on_code", unique: true
   end
 
   create_table "events", force: :cascade do |t|
