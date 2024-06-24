@@ -31,13 +31,32 @@ class CheckoutController < ApplicationController
       @payment_intent = Stripe::PaymentIntent.retrieve(@session.payment_intent)
       @event_id = @session.metadata.event_id
   
-      # Vider le panier de l'utilisateur
-      current_user.cart.cart_items.destroy_all
-  
-      # Afficher la vue de succès
+      @order = current_user.orders.build
+      if @order.save
+        current_user.cart.cart_items.each do |item|
+          if item.product.present?
+            @order.order_items.create!(
+              product_id: item.product_id,
+              quantity: item.quantity,
+              price: item.product.price
+            )
+          elsif item.event.present?
+            @order.order_items.create!(
+              event_id: item.event_id,
+              quantity: item.quantity,
+              price: item.event.price
+            )
+          end
+        end
+        current_user.cart.cart_items.destroy_all
+        redirect_to order_path(@order), notice: 'Votre commande a été passée avec succès.'
+      else
+        redirect_to cart_path, alert: 'Erreur lors de la création de la commande.'
+      end
     end
   
     def cancel
     end
+
   end
   

@@ -1,47 +1,50 @@
 <div class="container mt-5">
   <div class="row">
     <div class="col-md-4">
-      <div class="card">
+      <div class="card shadow-lg border-0">
         <div class="card-body">
-          <div class="mb-3">
-            <i class="fas fa-phone-alt fa-2x text-warning"></i>
+          <div class="mb-3 text-center">
+            <i class="fas fa-phone-alt fa-2x" style="color: #2A9D8F;"></i>
           </div>
-          <h5 class="card-title">Nous appeler</h5>
-          <p class="card-text">Nous sommes disponibles 24h/7 jours par semaine.</p>
-          <p class="card-text">Tel: +8001112222</p>
-          <div class="mb-3">
-            <i class="fas fa-envelope fa-2x text-warning"></i>
+          <h5 class="card-title text-center" style="color: #264653;">Nous appeler</h5>
+          <p class="card-text text-center">Nous sommes disponibles 24h/7 jours par semaine.</p>
+          <p class="card-text text-center">Tel: +8001112222</p>
+          <div class="mb-3 text-center">
+            <i class="fas fa-envelope fa-2x" style="color: #2A9D8F;"></i>
           </div>
-          <h5 class="card-title">Nous écrire</h5>
-          <p class="card-text">Complétez notre formulaire et nous vous répondrons sous 24h</p>
-          <p class="card-text">Email: client@lpmp.com</p>
-          <p class="card-text">Email: support@lpmp.com</p>
+          <h5 class="card-title text-center" style="color: #264653;">Nous écrire</h5>
+          <p class="card-text text-center">Complétez notre formulaire et nous vous répondrons sous 24h</p>
+          <p class="card-text text-center">Email: client@lpmp.com</p>
+          <p class="card-text text-center">Email: support@lpmp.com</p>
         </div>
       </div>
     </div>
     <div class="col-md-8">
-      <div class="card">
+      <div class="card shadow-lg border-0">
         <div class="card-body">
-          <form>
+          <h5 class="card-title text-center mb-4" style="color: #264653;">Contactez-nous</h5>
+          <form action="mailto:support@lpmp.com" method="post" enctype="text/plain">
             <div class="form-row">
               <div class="form-group col-md-4">
                 <label for="inputName">Votre Nom *</label>
-                <input type="text" class="form-control" id="inputName" placeholder="Votre Nom">
+                <input type="text" class="form-control" id="inputName" placeholder="Votre Nom" required>
               </div>
               <div class="form-group col-md-4">
                 <label for="inputEmail">Votre adresse mail *</label>
-                <input type="email" class="form-control" id="inputEmail" placeholder="Votre adresse mail">
+                <input type="email" class="form-control" id="inputEmail" placeholder="Votre adresse mail" required>
               </div>
               <div class="form-group col-md-4">
                 <label for="inputPhone">Votre téléphone *</label>
-                <input type="text" class="form-control" id="inputPhone" placeholder="Votre téléphone">
+                <input type="text" class="form-control" id="inputPhone" placeholder="Votre téléphone" required>
               </div>
             </div>
             <div class="form-group">
               <label for="inputMessage">Votre message</label>
-              <textarea class="form-control" id="inputMessage" rows="4" placeholder="Votre message"></textarea>
+              <textarea class="form-control" id="inputMessage" rows="4" placeholder="Votre message" required></textarea>
             </div>
-            <button type="submit" class="btn btn-warning">Envoyer message</button>
+            <div class="text-center">
+              <button type="submit" class="btn btn-block text-white" style="background-color: #D65830;">Envoyer message</button>
+            </div>
           </form>
         </div>
       </div>

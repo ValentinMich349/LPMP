@@ -14,11 +14,11 @@
       <h5>Manager mon profile</h5>
       <ul class="list-group list-group-flush">
         <li class="list-group-item"><%= link_to 'Mon profil', edit_user_registration_path %></li>
-        <li class="list-group-item"><%= link_to 'Adresses de livraison' %></li>
-        <li class="list-group-item"><%= link_to 'Mes options de paiements' %></li>
-        <li class="list-group-item"><%= link_to 'Mes retours' %></li>
-        <li class="list-group-item"><%= link_to 'Mes annulations' %></li>
-        <li class="list-group-item"><%= link_to 'Ma liste de souhait' %></li>
+        <li class="list-group-item"><%= link_to 'Adresses de livraison', delivery_addresses_path %></li>
+        <li class="list-group-item"><%= link_to 'Ma liste de souhait' , wishlist_path %></li>
+        <% if @user.admin? %>
+          <li class="list-group-item"><%= link_to 'Panel administrateur', admin_root_path %></li>
+        <% end %>
       </ul>
     </div>
     <div class="col-md-9">
@@ -26,6 +26,12 @@
         <div class="card-header">
           <h5>Éditer votre profil</h5>
         </div>
+
+        <%= form_for @user do |f| %>
+          <%= f.label :avatar %>
+          <%= f.file_field :avatar %>
+          <%= f.submit %>
+        <% end %>
         <div class="card-body">
           <%= form_for @user, url: user_path(@user), html: { method: :put } do |f| %>
             <div class="form-row">

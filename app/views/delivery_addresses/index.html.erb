@@ -1,0 +1,19 @@
+<h1>Mes adresses de livraison</h1>
+
+<% if @delivery_addresses.any? %>
+  <ul class="list-group">
+    <% @delivery_addresses.each do |address| %>
+      <li class="list-group-item">
+        <strong><%= address.address_line1 %></strong><br>
+        <%= address.address_line2 %><br>
+        <%= address.city %>, <%= address.state %> <%= address.zip_code %><br>
+        <%= address.country %><br>
+        <%= link_to 'Modifier', edit_delivery_address_path(address), class: 'btn btn-primary btn-sm' %>
+        <%= link_to 'Supprimer', delivery_address_path(address), method: :delete, data: { confirm: 'Êtes-vous sûr ?' }, class: 'btn btn-danger btn-sm' %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>Vous n'avez pas encore ajouté d'adresse de livraison.</p>
+<% end %>
+<%= link_to 'Ajouter une nouvelle adresse', new_delivery_address_path, class: 'btn btn-success' %>

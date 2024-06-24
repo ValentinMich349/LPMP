@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Page non trouvée</title>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
+<body>
+  <div class="container text-center mt-5">
+    <h1 style="color: #D65830;">404</h1>
+    <h2 style="color: #264653;">Page non trouvée</h2>
+    <p class="lead" style="color: #2A9D8F;">Désolé, la page que vous recherchez n'existe pas.</p>
+    <%= link_to 'Retour à l\'accueil', root_path, class: 'btn btn-lg btn-primary', style: 'background-color: #2A9D8F; border-color: #2A9D8F;' %>
+  </div>
+</body>
+</html>

@@ -1,9 +1,20 @@
 <div class="container mt-5">
   <h1 class="mb-4" style="color: #D65830;">
-    <span style="color: #D65830; vertical-align: middle;">&#9632;</span> <!-- Carré orange -->
+    <span style="color: #D65830; vertical-align: middle;">&#9632;</span>
     <%= action_name.capitalize %> Event
   </h1>
-  
+
+  <% if @event.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@event.errors.count, "erreur") %> ont empêché l'enregistrement de cet événement :</h2>
+      <ul>
+        <% @event.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
   <%= form_with(model: @event, local: true, class: 'needs-validation', novalidate: true) do |form| %>
     <div class="row mb-3">
       <div class="col-md-6">
@@ -28,14 +39,6 @@
         <%= form.label :end, "Date et heure de fin", class: 'form-label' %>
         <%= form.datetime_local_field :end, class: 'form-control', required: true %>
         <div class="invalid-feedback">Veuillez entrer la date et l'heure de fin.</div>
-      </div>
-    </div>
-
-    <div class="row mb-3">
-      <div class="col-md-12">
-        <%= form.label :localisation, "Localisation", class: 'form-label' %>
-        <%= form.text_field :localisation, class: 'form-control', required: true %>
-        <div class="invalid-feedback">Veuillez entrer une localisation.</div>
       </div>
     </div>
 

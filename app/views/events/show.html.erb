@@ -6,54 +6,58 @@
         <li class="breadcrumb-item"><%= link_to 'Événementiel', events_path %></li>
         <li class="breadcrumb-item active"><%= @event.name %></li>
       </ol>
-        <div class="card mb-4">
-            <img src="<%= @event.image_url %>" class="card-img-top" alt="<%= @event.name %>">
-            <div class="card-body">
-                <h1 class="card-title"><%= @event.name %></h1>
-                <p class="card-text"><%= @event.description %></p>
-                <p class="card-text"><small class="text-muted">Date : <%= @event.start.strftime("%d/%m/%Y") %> - <%= @event.end.strftime("%d/%m/%Y") %></small></p>
-            </div>
+      <div class="card mb-4 shadow-sm">
+        <img src="<%= @event.image_url %>" class="card-img-top" alt="<%= @event.name %>">
+        <div class="card-body">
+          <h1 class="card-title" style="color: #D65830;"><%= @event.name %></h1>
+          <p class="card-text"><%= @event.description %></p>
+          <p class="card-text">
+            <small class="text-muted">
+              Date : <%= @event.start.strftime("%d/%m/%Y") %> - <%= @event.end.strftime("%d/%m/%Y") %>
+            </small>
+          </p>
+          <% if user_signed_in? && (current_user.admin? || current_user == @event.user) %>
+            <%= link_to 'Éditer', edit_event_path(@event), class: 'btn btn-warning' %>
+          <% end %>
+        </div>
       </div>
     </div>
     <div class="col-md-4">
-      <h2><%= @event.name %></h2>
+      <h2 style="color: #D65830;"><%= @event.name %></h2>
       <p class="lead">À partir de <%= number_to_currency(@event.price) %></p>
-      <p>Evenement se déroulant à <%= @event.localisation %></p>
-      <form>
+      <p>Événement se déroulant à <%= @event.city.name %></p>
+      <%= form_with url: cart_cart_items_path, method: :post, local: true do %>
         <div class="form-group">
-          <label for="quantity">Nombre de place :</label>
-          <div class="input-group mb-3">
+          <label for="quantity">Nombre de places :</label>
+          <div class="input-group mb-3" style="width: auto; max-width: 200px; margin: 0 auto;">
             <div class="input-group-prepend">
               <button class="btn btn-outline-secondary" type="button" id="button-minus">-</button>
             </div>
-            <input type="text" class="form-control text-center" value="1" id="quantity">
+            <input type="number" name="quantity" class="form-control text-center" value="1" min="1" id="quantity">
             <div class="input-group-append">
               <button class="btn btn-outline-secondary" type="button" id="button-plus">+</button>
             </div>
           </div>
         </div>
-        <button type="submit" class="btn btn-danger btn-block">Acheter maintenant</button>
-      </form>
-      <div class="mt-4">
-        <div class="card mb-2">
-          <div class="card-body d-flex align-items-center">
-            <i class="fas fa-truck fa-2x mr-3"></i>
-            <div>
-              <h6 class="card-title mb-0">Livraison gratuite</h6>
-              <small class="text-muted">Enter your postal code for Delivery Availability</small>
-            </div>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-body d-flex align-items-center">
-            <i class="fas fa-undo fa-2x mr-3"></i>
-            <div>
-              <h6 class="card-title mb-0">Retour sur l'article</h6>
-              <small class="text-muted">Remboursement sous 30 jours</small>
-            </div>
-          </div>
-        </div>
-      </div>
+        <%= hidden_field_tag :event_id, @event.id %>
+        <button type="submit" class="btn btn-danger btn-block" style="background-color: #D65830; border-color: #D65830;">Acheter maintenant</button>
+      <% end %>
     </div>
   </div>
 </div>
+
+<script>
+  document.getElementById('button-minus').addEventListener('click', function () {
+    var input = document.getElementById('quantity');
+    var value = parseInt(input.value, 10);
+    if (value > 1) {
+      input.value = value - 1;
+    }
+  });
+
+  document.getElementById('button-plus').addEventListener('click', function () {
+    var input = document.getElementById('quantity');
+    var value = parseInt(input.value, 10);
+    input.value = value + 1;
+  });
+</script>

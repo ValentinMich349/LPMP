@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_19_143603) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_23_180229) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -70,11 +70,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_19_143603) do
 
   create_table "cart_items", force: :cascade do |t|
     t.bigint "cart_id", null: false
-    t.bigint "product_id", null: false
+    t.bigint "product_id"
     t.integer "quantity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "event_id"
     t.index ["cart_id"], name: "index_cart_items_on_cart_id"
+    t.index ["event_id"], name: "index_cart_items_on_event_id"
     t.index ["product_id"], name: "index_cart_items_on_product_id"
   end
 
@@ -110,6 +112,19 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_19_143603) do
     t.index ["code"], name: "index_coupons_on_code", unique: true
   end
 
+  create_table "delivery_addresses", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "address_line1"
+    t.string "address_line2"
+    t.string "city"
+    t.string "state"
+    t.string "zip_code"
+    t.string "country"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_delivery_addresses_on_user_id"
+  end
+
   create_table "events", force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -120,16 +135,20 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_19_143603) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "city_id", null: false
+    t.bigint "user_id", null: false
     t.index ["city_id"], name: "index_events_on_city_id"
+    t.index ["user_id"], name: "index_events_on_user_id"
   end
 
   create_table "order_items", force: :cascade do |t|
     t.bigint "order_id", null: false
-    t.bigint "product_id", null: false
+    t.bigint "product_id"
     t.integer "quantity"
     t.decimal "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "event_id"
+    t.index ["event_id"], name: "index_order_items_on_event_id"
     t.index ["order_id"], name: "index_order_items_on_order_id"
     t.index ["product_id"], name: "index_order_items_on_product_id"
   end
@@ -152,6 +171,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_19_143603) do
     t.integer "likes"
     t.decimal "rating"
     t.index ["category_id"], name: "index_products_on_category_id"
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "product_id", null: false
+    t.integer "rating"
+    t.text "comment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_reviews_on_product_id"
+    t.index ["user_id"], name: "index_reviews_on_user_id"
   end
 
   create_table "stores", force: :cascade do |t|
@@ -203,13 +233,19 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_19_143603) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "cart_items", "carts"
+  add_foreign_key "cart_items", "events"
   add_foreign_key "cart_items", "products"
   add_foreign_key "carts", "users"
+  add_foreign_key "delivery_addresses", "users"
   add_foreign_key "events", "cities"
+  add_foreign_key "events", "users"
+  add_foreign_key "order_items", "events"
   add_foreign_key "order_items", "orders"
   add_foreign_key "order_items", "products"
   add_foreign_key "orders", "users"
   add_foreign_key "products", "categories"
+  add_foreign_key "reviews", "products"
+  add_foreign_key "reviews", "users"
   add_foreign_key "wishlist_items", "products"
   add_foreign_key "wishlist_items", "wishlists"
   add_foreign_key "wishlists", "users"

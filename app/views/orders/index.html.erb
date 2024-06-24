@@ -1,0 +1,23 @@
+<h1>Liste des commandes</h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Achat numéro:</th>
+      <th>Data achat:</th>
+      <th>Actions:</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @orders.each do |order| %>
+      <tr>
+        <td><%= order.id %></td>
+        <td><%= order.created_at.strftime("%d/%m/%Y %H:%M") %></td>
+        <td>
+          <%= link_to 'Voir le details de la commande', order_path(order), class: 'btn btn-info btn-sm' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= link_to 'Nouvelle commande', cart_path, class: 'btn btn-primary' %>

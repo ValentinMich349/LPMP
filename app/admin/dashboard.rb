@@ -15,7 +15,7 @@ ActiveAdmin.register_page "Dashboard" do
         panel "Recent Orders" do
           ul do
             Order.order(created_at: :desc).limit(10).map do |order|
-              li link_to("Order ##{order.id}", admin_order_path(order))
+              li link_to("Order ##{order.id} by #{order.user.email} ")
             end
           end
         end
@@ -46,6 +46,11 @@ ActiveAdmin.register_page "Dashboard" do
           end
         end
       end
+    end
+  end
+  sidebar "Lien pour retourner sur le site", only: :index do
+    ul do
+      li link_to("Retourner au site", root_path)
     end
   end
 end
