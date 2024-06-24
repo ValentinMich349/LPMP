@@ -17,7 +17,7 @@
   }
   
   .star-rating {
-    direction: rtl; /* Change direction to right-to-left */
+    direction: rtl; 
     display: inline-flex;
     justify-content: center;
     position: relative;

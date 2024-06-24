@@ -8,8 +8,9 @@ Rails.start();
 Turbolinks.start();
 ActiveStorage.start();
 
+//= require jquery3
+//= require_tree .
 
-// Optionally include jQuery
 import $ from 'jquery';
 global.$ = jQuery;
 

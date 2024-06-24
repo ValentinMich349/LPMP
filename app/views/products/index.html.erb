@@ -1,6 +1,8 @@
+ <% content_for :title, "Page produit" %>
+<% content_for :meta_description, "Voir tous les produits disponible" %>
  <div class="container mt-5">
   <h1 class="mb-5" style="color: #E76F51;">
-    <span style="color: #E76F51; vertical-align: middle;">&#9632;</span> <!-- Carré orange -->
+    <span style="color: #E76F51; vertical-align: middle;">&#9632;</span>  
     Catégories
   </h1>
   <div class="row">
@@ -25,7 +27,7 @@
 
 
 <h2 class="mb-5" style="color: #D65830; font-size: 1.5rem; text-align: left; margin-left: 20px;">
-    <span class="mr-0" style="color: #D65830; vertical-align: middle;">&#9632;</span> <!-- Carré orange -->
+    <span class="mr-0" style="color: #D65830; vertical-align: middle;">&#9632;</span>  
     Nos Produits
 </h2>
 <div class="row justify-content-center">
@@ -33,8 +35,8 @@
         <div class="col-md-3 col-sm-6 col-6 mb-4">
             <div class="card position-relative" style="width: 100%; height: auto;">
                 <div class="position-absolute top-0 end-0 mt-2 me-2 d-flex flex-column">
-                    <i class="fa fa-heart mb-1" style="color: #E76F51;"></i> <!-- Icône de cœur -->
-                    <i class="fa fa-eye" style="color: #2A9D8F;"></i> <!-- Icône d'œil -->
+                    <i class="fa fa-heart mb-1" style="color: #E76F51;"></i> 
+                    <i class="fa fa-eye" style="color: #2A9D8F;"></i> 
                 </div>
                 <%= image_tag product.image, class: 'card-img-top', alt: product.name, style: "width: 100%; height: auto;" %>
                 <div class="card-body">
