@@ -1,5 +1,5 @@
 <header>
-    <nav class="navbar navbar-expand-lg navbar-light " style="background-color: #eeeadf">
+    <nav class="navbar navbar-expand-lg navbar-light border-bottom border-dark" " style="background-color: #eeeadf">
       <a class="navbar-brand" href="#">
         <img src="<%= asset_path("logo.png") %>" alt="Logo"  style="width: 100px;">
       </a>
@@ -8,13 +8,21 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
+          <li class="nav-item d-flex align-items-center border-left ">
             <%= link_to 'Accueil', root_path,  class: 'nav-link' %>
           </li>
-          <li class="nav-item">
-            <%= link_to 'Tous nos produits', products_path, class: 'nav-link' %>
+          <li class="nav-item dropdown d-flex align-items-center border-left" id="product_nav">
+            <%= link_to 'Tous nos produits', products_path, class: 'nav-link', id: 'navbarDropdown', role: 'button' %>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <% @categories.each do |category| %>
+                <%= link_to category.name, category_path(category), class: 'dropdown-item' %>
+              <% end %>
+            </div>
           </li>
-          <li class="nav-item">
+          <li class="nav-item d-flex align-items-center border-left ">
+            <%= link_to 'Voir les événements', events_path, class: 'nav-link' %>
+          </li>
+          <li class="nav-item d-flex align-items-center border-left border-right">
             <%= link_to 'Carte', locations_path, class: 'nav-link'%>
           </li>
         </ul>
@@ -57,7 +65,6 @@
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                 <%= link_to 'Mon Profil',  user_path(current_user), class: 'dropdown-item' %>
                 <%= link_to 'Mes commandes', orders_path, class: 'dropdown-item' %>
-                <%= link_to 'Mes annulations', cancellations_path, class: 'dropdown-item' %>
                 <%= link_to 'Mes avis', reviews_path, class: 'dropdown-item' %>
                 <div class="dropdown-divider"></div>
                 <%= link_to "Se déconnecter", destroy_user_session_path, class: 'dropdown-item', method: :delete %>

@@ -2,13 +2,26 @@
 <div class="container mt-5">
   <div class="row">
     <div class="col-12">
-      <div id="map" style="height: 400px; width: 100%;"></div>
+      <div class="position-relative">
+        <div id="map" style="height: 400px; width: 100%;"></div>
+      </div>
     </div>
   </div>
 
+  <div class="d-flex align-items-center mt-2">
+    <button class="btn btn-light btn-sm me-2" onclick="location.reload();">
+      <i class="fas fa-sync-alt"></i>
+    </button>
+    <p class="small text-muted mb-0">Si la page est mal chargée, appuyez sur le bouton</p>
+  </div>
+
   <div class="mt-3 text-center">
-    <button id="show-shops" class="btn btn-primary">Afficher les Magasins</button>
-    <button id="show-events" class="btn btn-secondary">Afficher les Événements</button>
+    <button id="show-shops" class="btn btn-primary btn-lg me-2" style="background-color: #2A9D8F; border-color: #2A9D8F; transition: transform 0.2s;">
+      <i class="fas fa-store me-2"></i>Afficher les Magasins
+    </button>
+    <button id="show-events" class="btn btn-secondary btn-lg" style="background-color: #D65830; border-color: #D65830; transition: transform 0.2s;">
+      <i class="fas fa-calendar-alt me-2"></i>Afficher les Événements
+    </button>
   </div>
 
   <div class="row mt-3">
@@ -19,171 +32,8 @@
 </div>
 
 <script>
-   document.addEventListener("DOMContentLoaded", function() {
-  var map = new ol.Map({
-    target: 'map',
-    layers: [
-      new ol.layer.Tile({
-        source: new ol.source.OSM()
-      })
-    ],
-    view: new ol.View({
-      center: ol.proj.fromLonLat([2.2137, 46.2276]),
-      zoom: 5
-    })
-  });
-
-  var shopMarkers = <%= raw @shops.map { |shop| { lon: shop.longitude, lat: shop.latitude, name: shop.name, address: shop.address, city: shop.city, state: shop.state, zip_code: shop.zip_code, phone_number: shop.phone_number, email: shop.email } }.to_json %>;
-  var eventMarkers = <%= raw @events.map { |event| { lon: event.city.longitude, lat: event.city.latitude, name: event.name, description: event.description, start: event.start, end: event.end, localisation: event.city.name } }.to_json %>;
-
-  var shopIconStyle = new ol.style.Style({
-    image: new ol.style.Icon({
-      anchor: [0.5, 1],
-      src: '<%= asset_path("shop-marker.png") %>',
-      scale: 0.08
-    })
-  });
-
-  var eventIconStyle = new ol.style.Style({
-    image: new ol.style.Icon({
-      anchor: [0.5, 1],
-      src: '<%= asset_path("event-marker.png") %>',
-      scale: 0.08
-    })
-  });
-
-  function createLayer(markers, style) {
-    return new ol.layer.Vector({
-      source: new ol.source.Vector({
-        features: markers.map(function(marker) {
-          var feature = new ol.Feature({
-            geometry: new ol.geom.Point(ol.proj.fromLonLat([marker.lon, marker.lat])),
-            name: marker.name,
-            address: marker.address,
-            city: marker.city,
-            state: marker.state,
-            zip_code: marker.zip_code,
-            phone_number: marker.phone_number,
-            email: marker.email,
-            description: marker.description,
-            start: marker.start,
-            end: marker.end,
-            localisation: marker.localisation
-          });
-          feature.setStyle(style);
-          return feature;
-        })
-      })
-    });
-  }
-
-  var shopLayer = createLayer(shopMarkers, shopIconStyle);
-  var eventLayer = createLayer(eventMarkers, eventIconStyle);
-
-  var container = document.createElement('div');
-  container.className = 'ol-popup card shadow';
-  var content = document.createElement('div');
-  content.className = 'card-body';
-  container.appendChild(content);
-  var closer = document.createElement('button');
-  closer.className = 'close';
-  closer.innerHTML = '&times;';
-  container.appendChild(closer);
-
-  var overlay = new ol.Overlay({
-    element: container,
-    autoPan: true,
-    autoPanAnimation: {
-      duration: 250
-    }
-  });
-  map.addOverlay(overlay);
-
-  closer.onclick = function() {
-    overlay.setPosition(undefined);
-    closer.blur();
-    return false;
-  };
-
-  function displayPopup(feature) {
-    content.innerHTML = `
-      <div class="card" style="width: 18rem;">
-        <div class="card-header bg-primary text-white">
-          <h5 class="card-title mb-0">${feature.get('name')}</h5>
-        </div>
-        <div class="card-body">
-          ${feature.get('address') ? `<h6 class="card-subtitle mb-2 text-muted">${feature.get('address')}</h6>` : ''}
-          ${feature.get('city') ? `<p class="card-text"><i class="fa fa-map-marker-alt"></i> ${feature.get('city')}, ${feature.get('state')} ${feature.get('zip_code')}</p>` : ''}
-          ${feature.get('phone_number') ? `<p class="card-text"><i class="fa fa-phone"></i> <strong>${feature.get('phone_number')}</strong></p>` : ''}
-          ${feature.get('email') ? `<p class="card-text"><i class="fa fa-envelope"></i> <a href="mailto:${feature.get('email')}" class="card-link">${feature.get('email')}</a></p>` : ''}
-          ${feature.get('description') ? `<p class="card-text">${feature.get('description')}</p>` : ''}
-          ${feature.get('start') ? `<p class="card-text"><i class="fa fa-calendar-alt"></i> ${new Date(feature.get('start')).toLocaleDateString()} - ${new Date(feature.get('end')).toLocaleDateString()}</p>` : ''}
-          ${feature.get('localisation') ? `<p class="card-text"><i class="fa fa-map-marker-alt"></i> ${feature.get('localisation')}</p>` : ''}
-        </div>
-      </div>
-    `;
-    overlay.setPosition(feature.getGeometry().getCoordinates());
-  }
-
-  document.getElementById('show-shops').addEventListener('click', function() {
-    map.getLayers().getArray().forEach(function(layer) {
-      if (layer instanceof ol.layer.Vector) {
-        map.removeLayer(layer);
-      }
-    });
-    map.addLayer(shopLayer);
-    var listing = document.getElementById('listing');
-    listing.innerHTML = shopMarkers.map(function(marker) {
-      return `
-        <div class="card mb-2">
-          <div class="card-body">
-            <h5 class="card-title">${marker.name}</h5>
-            <h6 class="card-subtitle mb-2 text-muted">${marker.address}</h6>
-            <p class="card-text">${marker.city}, ${marker.state} ${marker.zip_code}</p>
-            <p class="card-text"><strong>Phone:</strong> ${marker.phone_number}</p>
-            <a href="mailto:${marker.email}" class="card-link">${marker.email}</a>
-          </div>
-        </div>
-      `;
-    }).join('');
-  });
-
-  document.getElementById('show-events').addEventListener('click', function() {
-    map.getLayers().getArray().forEach(function(layer) {
-      if (layer instanceof ol.layer.Vector) {
-        map.removeLayer(layer);
-      }
-    });
-    map.addLayer(eventLayer);
-    var listing = document.getElementById('listing');
-    listing.innerHTML = eventMarkers.map(function(marker) {
-      return `
-        <div class="card mb-2">
-          <div class="card-body">
-            <h5 class="card-title">${marker.name}</h5>
-            <p class="card-text">${marker.description}</p>
-            <p class="card-text"><i class="fa fa-calendar-alt"></i> ${new Date(marker.start).toLocaleDateString()} - ${new Date(marker.end).toLocaleDateString()}</p>
-            <p class="card-text"><i class="fa fa-map-marker-alt"></i> ${marker.localisation}</p>
-          </div>
-        </div>
-      `;
-    }).join('');
-  });
-
-  map.on('click', function(evt) {
-    var feature = map.forEachFeatureAtPixel(evt.pixel, function(feature) {
-      return feature;
-    });
-
-    if (feature) {
-      displayPopup(feature);
-    } else {
-      overlay.setPosition(undefined);
-      closer.blur();
-    }
-  });
-
-  // Affiche initialement les shops
-  document.getElementById('show-shops').click();
-});
+  window.shopsData = <%= raw @shops_data %>;
+  window.eventsData = <%= raw @events_data %>;
+  window.shopMarkerPath = '<%= asset_path("shop-marker.png") %>';
+  window.eventMarkerPath = '<%= asset_path("event-marker.png") %>';
 </script>

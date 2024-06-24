@@ -13,6 +13,7 @@ class ProductsController < ApplicationController
 
   def show
     @similar_products = Product.random_products_from_same_category(@product) 
+    @review = @product.reviews.build
   end
 
   def new
@@ -53,8 +54,6 @@ class ProductsController < ApplicationController
       format.js   # Create like.js.erb for handling JS response
     end
   end
-
- private
 
  private
 

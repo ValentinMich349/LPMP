@@ -1,0 +1,29 @@
+<h1>Liste des images sur Cloudinary</h1>
+
+<%= form_with url: images_path, method: :get, local: true do %>
+  <div class="form-group">
+    <%= label_tag :search, 'Rechercher des images par nom' %>
+    <%= text_field_tag :search, params[:search], class: 'form-control' %>
+  </div>
+  <%= submit_tag 'Rechercher', class: 'btn btn-primary' %>
+  <%= link_to 'Réinitialiser', images_path, class: 'btn btn-secondary' %>
+<% end %>
+
+<div class="row mt-4">
+  <% if @images.any? %>
+    <% @images.each do |image| %>
+      <div class="col-md-4">
+        <div class="card mb-4 shadow-sm">
+          <img src="<%= image['secure_url'] %>" class="card-img-top" alt="<%= image['public_id'] %>">
+          <div class="card-body">
+            <h5 class="card-title"><%= image['public_id'] %></h5>
+            <p class="card-text">Format : <%= image['format'] %></p>
+            <p class="card-text">Dimensions : <%= image['width'] %> x <%= image['height'] %></p>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% else %>
+    <p>Aucune image trouvée sur Cloudinary.</p>
+  <% end %>
+</div>

@@ -1,0 +1,32 @@
+<div class="container mt-5">
+  <h1 class="mb-4" style="color: #264653;">Mes Avis</h1>
+  <% if @reviews.any? %>
+    <div class="row">
+      <% @reviews.each do |review| %>
+        <div class="col-md-6">
+          <div class="card mb-3 shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title" style="color: #264653;">
+                <%= link_to review.product.name, product_path(review.product), class: 'text-decoration-none' %>
+              </h5>
+              <div class="star-rating mb-2">
+                <% (1..5).each do |star| %>
+                  <i class="fas fa-star <%= 'text-warning' if star <= review.rating.to_i %>"></i>
+                <% end %>
+              </div>
+              <p class="card-text"><%= review.comment %></p>
+              <div class="d-flex justify-content-end">
+                <%= link_to 'Modifier', edit_product_review_path(review.product, review), class: 'btn btn-outline-primary btn-sm me-2' %>
+                <%= link_to 'Supprimer', product_review_path(review.product, review), method: :delete, data: { confirm: 'Êtes-vous sûr ?' }, class: 'btn btn-outline-danger btn-sm' %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="alert alert-info" role="alert">
+      Vous n'avez laissé aucun avis pour l'instant.
+    </div>
+  <% end %>
+</div>

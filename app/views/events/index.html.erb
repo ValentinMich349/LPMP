@@ -21,7 +21,7 @@
             <p class="card-text"><%= event.description.truncate(100) %></p>
             <div class="mb-2">
               <span class="badge bg-primary"><i class="fas fa-calendar-alt"></i> <%= event.start.strftime("%d %b %Y") %> - <%= event.end.strftime("%d %b %Y") %></span>
-              <span class="badge bg-success"><i class="fas fa-map-marker-alt"></i> <%= event.localisation %></span>
+              <span class="badge bg-success"><i class="fas fa-map-marker-alt"></i> <%= event.city.name %></span>
             </div>
             <p class="card-text"><strong>Prix:</strong> <%= number_to_currency(event.price, unit: "€") %></p>
             <%= link_to 'Voir Détails', event_path(event), class: 'btn btn-outline-primary mt-auto' %>

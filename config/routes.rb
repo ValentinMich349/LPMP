@@ -20,12 +20,17 @@ Rails.application.routes.draw do
     post 'apply_coupon', on: :collection
     resources :cart_items, only: [:create, :update, :destroy]
   end
-  resources :orders, only: [:new, :create, :index]
+  resources :products do
+    resources :reviews, only: [:create, :edit, :update, :destroy, :index, :show]
+  end
+  resources :orders
   resources :categories, only: [:show, :index]
   resource :wishlist, only: [:show]
   resources :wishlist_items, only: [:create, :destroy]
-  resources :events, only: [:index, :show, :new, :create]
+  resources :events, only: [:index, :show, :new, :create, :edit]
   resources :locations, only: [:index]
+  resources :delivery_addresses, except: [:show]
+  resources :images, only: [:index]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   scope '/checkout' do
@@ -35,6 +40,7 @@ Rails.application.routes.draw do
   end
 
   root 'home#index'
+  match '/404', to: 'errors#not_found', via: :all
 
   
 

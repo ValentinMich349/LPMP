@@ -1,0 +1,29 @@
+fr:
+  hello: "Bonjour"
+  activerecord:
+    models:
+      event: "Événement"
+    attributes:
+      event:
+        name: "Nom"
+        description: "Description"
+        price: "Prix"
+        start: "Date de début"
+        end: "Date de fin"
+        city: "Ville"
+  date:
+    formats:
+      default: "%d/%m/%Y"
+      short: "%d %b"
+      long: "%d %B %Y"
+      without_time: "%d/%m/%Y"  # Ajoutez ce format
+    day_names: ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"]
+    abbr_day_names: ["dim", "lun", "mar", "mer", "jeu", "ven", "sam"]
+    month_names: [nil, "Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"]
+    abbr_month_names: [nil, "Jan", "Fév", "Mar", "Avr", "Mai", "Jun", "Jul", "Aoû", "Sep", "Oct", "Nov", "Déc"]
+  time:
+    formats:
+      default: "%d/%m/%Y %H:%M"
+      short: "%d %b %H:%M"
+      long: "%d %B %Y %H:%M"
+      time: "%H:%M"

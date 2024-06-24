@@ -6,6 +6,10 @@ class Product < ApplicationRecord
 
   has_many :wishlist_items
   has_many :wishlists, through: :wishlist_items
+  has_many :order_items
+  has_many :orders, through: :order_items
+  has_many :reviews, dependent: :destroy
+  has_many :reviewers, through: :reviews, source: :user
 
   belongs_to :category
 
@@ -14,6 +18,8 @@ class Product < ApplicationRecord
 
   validates :likes, numericality: { greater_than_or_equal_to: 0 }
   validates :rating, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 5 }
+  validates :name, presence: true
+  validates :price, presence: true, numericality: { greater_than_or_equal_to: 0 }
 
   # Ajout d'une méthode pour récupérer l'URL de l'image à partir de Cloudinary
   def cloudinary_image_url

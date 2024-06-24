@@ -2,6 +2,7 @@ class Order < ApplicationRecord
     belongs_to :user
     has_many :order_items, dependent: :destroy
     after_create :send_order_confirmation
+    # validates :address_line1, :city, :state, :zip_code, :country, presence: true
 
 
     def self.ransackable_attributes(auth_object = nil)

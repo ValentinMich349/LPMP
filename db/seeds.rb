@@ -33,8 +33,7 @@ end
 categories = [
   { name: 'Modèles 3D', icon: 'cube' },
   { name: 'Modèles Chibi', icon: 'child' },
-  { name: 'Accessoires', icon: 'glasses' },
-  { name: 'Événementiel', icon: 'calendar' }
+  { name: 'Accessoires', icon: 'glasses' }
 ]
 
 categories.each do |category|

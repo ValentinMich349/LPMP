@@ -1,22 +1,6 @@
-
-  <!-- Bannière -->
-<div class="container-fluid">
-  <div class="row justify-content-center">  
-    <div class="col-md-10">
-      <img src="<%= asset_path("banner_home.webp") %>" class="img-fluid" alt="Bannière">
-      <div class="text-center mt-3">
-        <%= link_to 'Voir tous les produits', products_path, class: 'btn btn-warning' %>
-      </div>
-    </div>
-  </div>
-</div>
-
-  <!-- Catégories -->
-
-
   <div class="container mt-5">
   <h1 class="mb-5" style="color: #E76F51;">
-    <span style="color: #E76F51; vertical-align: middle;">&#9632;</span> <!-- Carré orange -->
+    <span style="color: #E76F51; vertical-align: middle;">&#9632;</span>
     Catégories
   </h1>
   <div class="row">
@@ -39,11 +23,9 @@
   </div>
 </div>
 
-
-  <!-- Prochains événements -->
   <div class="container mt-5">
     <h2 class="mb-5" style="color: #E76F51;">
-      <span style="color: #E76F51; vertical-align: middle;">&#9632;</span> <!-- Carré orange -->
+      <span style="color: #E76F51; vertical-align: middle;">&#9632;</span>
       Prochains événements
     </h2>
     <div class="row">
@@ -71,12 +53,9 @@
     </div>
   </div>
 
-
-
- <!-- Explorez nos produits -->
   <div class="container mt-5">
     <h2 class="mb-5" style="color: #E76F51;">
-      <span style="color: #E76F51; vertical-align: middle;">&#9632;</span> <!-- Carré orange -->
+      <span style="color: #E76F51; vertical-align: middle;">&#9632;</span>
       Explorez nos produits
     </h2>
     <div class="row">
@@ -118,27 +97,43 @@
     </div>
   </div>
 
-
-
-
-  <!-- Nouveautés -->
 <div class="container mt-5">
   <h2 class="mb-5" style="color: #E76F51;">
     <span style="color: #E76F51; vertical-align: middle;">&#9632;</span> <!-- Carré orange -->
     Nouveautés
   </h2>
-  <div class="row">
-    <% @latest_products.each do |product| %>
-      <div class="col-md-3 col-sm-6 mb-4">
-        <div class="card h-100 d-flex flex-column">
-            <%= image_tag product.image, class: 'card-img-top' %>
-          <div class="card-body d-flex flex-column">
-            <h5 class="card-title text-center"><%= product.name %></h5>
-            <p class="card-text text-center"><%= truncate(product.description, length: 100) %></p>
-            <%= link_to 'Voir Détails', product_path(product), class: 'btn btn-outline-primary mt-auto' %>
+  <% if @latest_products.present? %>
+    <div id="latestProductsCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5500">
+      <div class="carousel-inner">
+        <% @latest_products.each_slice(4).with_index do |product_group, index| %>
+          <div class="carousel-item <%= 'active' if index == 0 %>">
+            <div class="row">
+              <% product_group.each do |product| %>
+                <div class="col-md-3 col-sm-6 mb-4">
+                  <div class="card h-100 d-flex flex-column">
+                    <%= image_tag product.image, class: 'card-img-top' %>
+                    <div class="card-body d-flex flex-column">
+                      <h5 class="card-title text-center"><%= product.name %></h5>
+                      <p class="card-text text-center"><%= truncate(product.description, length: 100) %></p>
+                      <%= link_to 'Voir Détails', product_path(product), class: 'btn btn-outline-primary mt-auto' %>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            </div>
           </div>
-        </div>
+        <% end %>
       </div>
-    <% end %>
-  </div>
+      <button class="carousel-control-prev visually-hidden" type="button" data-bs-target="#latestProductsCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next visually-hidden" type="button" data-bs-target="#latestProductsCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+  <% else %>
+    <p>Aucun produit à afficher.</p>
+  <% end %>
 </div>

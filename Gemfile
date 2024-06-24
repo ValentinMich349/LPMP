@@ -95,3 +95,9 @@ gem "sassc-rails", "~> 2.1"
 gem "aws-sdk-s3", "~> 1.152", :require => false
 
 gem "i18n", "~> 1.14"
+
+gem "webpacker", "~> 5.4"
+
+gem "flatpickr", "~> 4.6"
+
+gem "activestorage-cloudinary-service", "~> 0.2.3"

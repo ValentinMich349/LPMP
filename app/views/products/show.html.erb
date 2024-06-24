@@ -1,130 +1,181 @@
+<% if flash[:alert] %>
+  <div class="alert alert-danger">
+    <%= flash[:alert] %>
+  </div>
+<% end %>
+<% if flash[:notice] %>
+  <div class="alert alert-success">
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+
 <div class="container mt-5">
-  <!-- Navigation -->
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-      <%= link_to "Accueil", root_path, class: "nav-link breadcrumb-item" %>
-      <li class="breadcrumb-item d-inline">
-        <%= link_to "Produits", products_path, class: "nav-link" %>
-      </li>
+      <li class="breadcrumb-item"><%= link_to "Accueil", root_path %></li>
+      <li class="breadcrumb-item"><%= link_to "Produits", products_path %></li>
       <li class="breadcrumb-item active" aria-current="page"><%= @product.name %></li>
     </ol>
   </nav>
 
   <div class="row">
     <div class="col-md-6">
-      <!-- Miniatures -->
       <div class="row">
-        <div class="col-md-3">
-            <img src="<%= @product.image %>" class="img-fluid rounded mb-2" alt="Miniature ">
+        <div class="col-3">
+          <img src="<%= @product.image %>" class="img-fluid rounded mb-2" alt="Miniature">
         </div>
-        <div class="col-md-9">
-          <!-- Image du produit -->
+        <div class="col-9">
           <img src="<%= @product.image %>" class="img-fluid rounded" alt="Image du produit">
         </div>
       </div>
     </div>
     <div class="col-md-6">
-      <!-- Titre du produit -->
       <h1><%= @product.name %></h1>
-      <!-- Étoiles pour représenter la note -->
-      <div class="rating">
+      <div class="rating mb-3">
         <% 5.times do |i| %>
           <span class="fa fa-star <%= 'checked' if i < @product.rating %>"></span>
         <% end %>
       </div>
-      <!-- Description du produit -->
       <p><%= @product.description %></p>
-      <!-- Prix du produit -->
       <p><strong>Prix: $<%= @product.price %></strong></p>
-      <!-- Sélection du nombre de produits -->
+      
       <div class="mt-4">
-        <label for="product-quantity">Choisissez le nombre de produits:</label>
-        <div class="input-group" style="width: auto; display: flex; align-items: center;">
-          <button class="btn btn-outline-secondary" type="button" id="button-minus" style="background-color: grey; color: white;">-</button>
-          <input type="number" id="product-quantity" value="1" min="1" max="5" style="width: 60px; text-align: center; margin: 0 5px;">
-          <button class="btn btn-outline-secondary" type="button" id="button-plus" style="background-color: #D65830; color: white;">+</button>
+        <label for="quantity" class="form-label">Choisissez le nombre de produits:</label>
+        <div class="input-group mb-4" style="width: auto; max-width: 300px; margin: 0 auto;">
+          <div class="input-group-prepend">
+            <button class="btn btn-outline-secondary" type="button" id="button-minus">
+              <i class="fas fa-minus"></i>
+            </button>
+          </div>
+          <input type="number" name="quantity" class="form-control text-center" value="1" min="1" id="quantity">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="button" id="button-plus">
+              <i class="fas fa-plus"></i>
+            </button>
+          </div>
+        </div>
+        <div class="d-flex justify-content-around">
+          <%= form_with url: cart_cart_items_path, method: :post, local: true do %>
+            <%= hidden_field_tag :product_id, @product.id %>
+            <%= hidden_field_tag :quantity, 1, id: "cart-quantity" %>
+            <button type="submit" class="btn btn-primary" style="background-color: #2A9D8F; border-color: #2A9D8F;">
+              <i class="fas fa-shopping-cart"></i> Ajouter au panier
+            </button>
+          <% end %>
+          <%= form_with url: wishlist_items_path, method: :post, local: true do %>
+            <%= hidden_field_tag :product_id, @product.id %>
+            <button type="submit" class="btn btn-secondary" style="background-color: #E76F51; border-color: #E76F51;">
+              <i class="fas fa-heart"></i> Ajouter à la Wishlist
+            </button>
+          <% end %>
         </div>
       </div>
+    </div>
+  </div>
+  
+  <div class="mt-4 p-3 border rounded shadow bg-light" style="max-width: 800px; margin: 0 auto;">
+    <div class="row">
+      <div class="col-md-6 d-flex flex-column align-items-center border-end">
+        <h5 class="mb-3">Livraison gratuite</h5>
+        <p class="text-center"><i class="fa fa-truck me-2"></i> Entrez votre code postal pour voir les disponibilités</p>
+      </div>
+      <div class="col-md-6 d-flex flex-column align-items-center">
+        <h5 class="mb-3">Retour gratuit</h5>
+        <p class="text-center"><i class="fa fa-undo me-2"></i> Retourner un article</p>
+        <p class="text-center">Retour gratuit sous 30 jours. Détails</p>
+      </div>
+    </div>
+  </div>
 
-      <script>
-        document.getElementById('button-minus').addEventListener('click', function () {
-          var input = document.getElementById('product-quantity');
-          var value = parseInt(input.value, 10);
-          if (value > 1) {
-            input.value = value - 1;
-          }
-        });
+  <h3 class="mb-4" style="color: #264653;">Avis des utilisateurs</h3>
+  <% @product.reviews.each do |review| %>
+    <div class="card mb-3 shadow-sm">
+      <div class="card-body">
+        <% if review.user %>
+          <h5 class="card-title" style="color: #264653;">
+            <i class="fas fa-user-circle"></i> <%= review.user.email %>
+            <div class="star-rating d-inline-flex">
+              <% (1..5).each do |star| %>
+                <i class="fas fa-star <%= 'text-warning' if star <= review.rating.to_i %>"></i>
+              <% end %>
+            </div>
+          </h5>
+          <p class="card-text"><%= review.comment %></p>
+          <% if review.user == current_user %>
+            <div class="d-flex justify-content-end">
+              <%= link_to 'Modifier', edit_product_review_path(@product, review), class: 'btn btn-outline-primary btn-sm me-2' %>
+              <%= link_to 'Supprimer', product_review_path(@product, review), method: :delete, data: { confirm: 'Êtes-vous sûr ?' }, class: 'btn btn-outline-danger btn-sm' %>
+            </div>
+          <% end %>
+        <% else %>
+          <h5 class="card-title" style="color: #264653;">
+            <i class="fas fa-user-circle"></i> Laissez un avis
+          </h5>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
 
-        document.getElementById('button-plus').addEventListener('click', function () {
-          var input = document.getElementById('product-quantity');
-          var value = parseInt(input.value, 10);
-          if (value < 5) {
-            input.value = value + 1;
-          }
-        });
+  <% if user_signed_in? && current_user.orders.joins(:order_items).where(order_items: { product_id: @product.id }).exists? %>
+    <div class="card mt-5 shadow-sm">
+      <div class="card-body">
+        <h3 class="card-title mb-4" style="color: #264653;">Ajouter un avis</h3>
+        <%= render 'reviews/form', product: @product, review: @review %>
+      </div>
+    </div>
+  <% end %>
 
-        function addToCart(productId) {
-          var quantity = document.getElementById('product-quantity').value;
-          var form = document.createElement('form');
-          form.method = 'POST';
-          form.action = '<%= cart_cart_items_path %>';
-          form.innerHTML = `<input name="product_id" value="${productId}">
-                            <input name="quantity" value="${quantity}">
-                            <input name="_method" value="post">
-                            <input name="authenticity_token" value="<%= form_authenticity_token %>">`;
-          document.body.appendChild(form);
-          form.submit();
-        }
-      </script>
-
-      <% if user_signed_in? %>
-        <!-- Bouton d'ajout au panier -->
-        <button onclick="addToCart(<%= @product.id %>)" class="btn btn-primary" style="background-color: #2A9D8F; border-color: #2A9D8F;">Ajouter au panier</button>
-        <%= button_to 'Ajouter à la Wishlist', wishlist_items_path(product_id: @product.id), method: :post, class: 'btn btn-secondary' %>
-      <% else %>
-        <p>Veuillez <%= link_to 'vous connecter', new_user_session_path %> ou <%= link_to 'vous inscrire', new_user_registration_path %> pour ajouter des articles au panier.</p>
+  <h3 class="mb-4" style="color: #D65830;">Produits similaires</h3>
+  <div id="similarProductsCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5500">
+    <div class="carousel-inner">
+      <% @similar_products.each_slice(4).with_index do |products_group, index| %>
+        <div class="carousel-item <%= 'active' if index == 0 %>">
+          <div class="row">
+            <% products_group.each do |similar_product| %>
+              <div class="col-md-3">
+                <div class="card position-relative">
+                  <%= image_tag similar_product.image, class: 'card-img-top', alt: similar_product.name %>
+                  <div class="position-absolute top-0 end-0 m-2">
+                    <i class="fa fa-heart d-block mb-2" style="color: #E76F51;"></i>
+                    <i class="fa fa-eye d-block" style="color: #2A9D8F;"></i>
+                  </div>
+                  <div class="card-body">
+                    <h5 class="card-title"><%= similar_product.name %></h5>
+                    <p class="card-text"><%= truncate(similar_product.description, length: 100) %></p>
+                    <%= link_to 'Voir le produit', product_path(similar_product), class: 'btn btn-primary', style: 'background-color: #2A9D8F; border-color: #2A9D8F;' %>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
       <% end %>
     </div>
-  </div>
-
-  <!-- Cadre de livraison gratuite et retour -->
-  <div class="mr-3 border rounded p-3 shadow" style="max-width: 300px;">
-    <h5 class="mb-3">Livraison gratuite</h5>
-    <p><i class="fa fa-truck me-2"></i> Entrer votre code postal pour voir les disponibilités</p>
-    <hr>
-    <p class="mb-3"><i class="fa fa-undo me-2"></i> Retourner un article</p>
-    <p>Free 30 Days Delivery Returns. Details</p>
-  </div>
-
-  <!-- Section de promotion -->
-  <div class="row mt-5">
-    <div class="col-md-12">
-      <div class="alert alert-info" role="alert">
-        Ne manquez pas notre promotion spéciale sur ce produit! Réduction de 20% pour les 100 premières commandes. <a href="#" class="alert-link">Achetez maintenant</a>.
-      </div>
-    </div>
-  </div>
-
-  <!-- Titre "Produits similaires" -->
-  <h3 class="mb-4" style="color: #D65830;">Produits similaires</h3>
-
-<!-- Liste de produits similaires -->
-  <div class="row mt-5">
-    <% @similar_products.each do |similar_product| %>
-      <div class="col-md-3">
-        <div class="card position-relative">
-          <%= image_tag similar_product.image, class: 'card-img-top', alt: similar_product.name %>
-          <div class="position-absolute top-0 end-0 m-2">
-            <i class="fa fa-heart d-block mb-2" style="color: #E76F51;"></i> <!-- Icône de cœur -->
-            <i class="fa fa-eye d-block" style="color: #2A9D8F;"></i> <!-- Icône d'œil -->
-          </div>
-          <div class="card-body">
-            <h5 class="card-title"><%= similar_product.name %></h5>
-            <p class="card-text"><%= truncate(similar_product.description, length: 100) %></p>
-            <%= link_to 'Voir le produit', product_path(similar_product), class: 'btn btn-primary', style: 'background-color: #2A9D8F; border-color: #2A9D8F;' %>
-          </div>
-        </div>
-      </div>
-    <% end %>
+    <button class="carousel-control-prev" type="button" data-bs-target="#similarProductsCarousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#similarProductsCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button
   </div>
 </div>
+
+<script>
+  document.getElementById('button-minus').addEventListener('click', function () {
+    var input = document.getElementById('quantity');
+    var value = parseInt(input.value, 10);
+    if (value > 1) {
+      input.value = value - 1;
+      document.getElementById('cart-quantity').value = input.value;
+    }
+  });
+
+  document.getElementById('button-plus').addEventListener('click', function () {
+    var input = document.getElementById('quantity');
+    var value = parseInt(input.value, 10);
+    input.value = value + 1;
+    document.getElementById('cart-quantity').value = input.value;
+  });
+</script>

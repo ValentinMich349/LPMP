@@ -1,0 +1,83 @@
+<div class="container mt-5">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><%= link_to 'Accueil', root_path %></li>
+      <li class="breadcrumb-item"><%= link_to 'Commandes', orders_path %></li>
+      <li class="breadcrumb-item active" aria-current="page">Commande #<%= @order.id %></li>
+    </ol>
+  </nav>
+
+  <h1 class="mb-4" style="color: #D65830;">Détails de la commande</h1>
+
+  <div class="card mb-4 shadow-sm">
+    <div class="card-header" style="background-color: #2A9D8F; color: white;">
+      Commande #<%= @order.id %> - <%= @order.created_at.strftime("%d/%m/%Y %H:%M") %>
+    </div>
+    <div class="card-body">
+      <h5 class="card-title" style="color: #264653;">Informations sur l'utilisateur</h5>
+      <p class="card-text"><strong>Email :</strong> <%= @order.user.email %></p>
+
+      <h5 class="card-title mt-4" style="color: #264653;">Articles de la commande</h5>
+      <table class="table table-striped">
+        <thead style="background-color: #264653; color: white;">
+          <tr>
+            <th>Produit/Événement</th>
+            <th>Type</th>
+            <th>Prix unitaire</th>
+            <th>Quantité</th>
+            <th>Sous-total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @order.order_items.each do |item| %>
+            <tr>
+              <td>
+                <% if item.product.present? %>
+                  <i class="fas fa-box"></i> <%= item.product.name %>
+                <% elsif item.event.present? %>
+                  <i class="fas fa-calendar-alt"></i> <%= item.event.name %>
+                <% else %>
+                  N/A
+                <% end %>
+              </td>
+              <td>
+                <% if item.product.present? %>
+                  <span class="badge bg-primary">Produit</span>
+                <% elsif item.event.present? %>
+                  <span class="badge bg-success">Événement</span>
+                <% else %>
+                  N/A
+                <% end %>
+              </td>
+              <td>
+                <% if item.product.present? %>
+                  <%= number_to_currency(item.price, unit: "€") %>
+                <% elsif item.event.present? %>
+                  <%= number_to_currency(item.price, unit: "€") %>
+                <% else %>
+                  N/A
+                <% end %>
+              </td>
+              <td><%= item.quantity %></td>
+              <td>
+                <% if item.product.present? || item.event.present? %>
+                  <%= number_to_currency(item.price * item.quantity, unit: "€") %>
+                <% else %>
+                  N/A
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      
+      <div class="text-right mt-4">
+        <h5><strong>Total :</strong> <%= number_to_currency(@order.order_items.sum { |item| item.price * item.quantity }, unit: "€") %></h5>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-center">
+    <%= link_to 'Retour aux commandes', orders_path, class: 'btn btn-secondary', style: 'background-color: #D65830; border-color: #D65830;' %>
+  </div>
+</div>

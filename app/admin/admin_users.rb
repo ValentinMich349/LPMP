@@ -9,8 +9,6 @@ ActiveAdmin.register User do
     column :last_name
     column :pseudo
     column :admin
-    column :created_at
-    column :updated_at
     actions
   end
 
