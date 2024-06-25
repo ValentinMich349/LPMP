@@ -1,13 +1,10 @@
 require 'faker'
-
-# Clear existing data
 User.destroy_all
 Product.destroy_all
 Category.destroy_all
 Event.destroy_all
 City.destroy_all
 
-# Create users
 User.create!(
   email: "admin@example.com",
   password: "password",
@@ -29,18 +26,16 @@ users = 10.times.map do
   )
 end
 
-# Create categories
 categories = [
-  { name: 'Modèles 3D', icon: 'cube' },
-  { name: 'Modèles Chibi', icon: 'child' },
-  { name: 'Accessoires', icon: 'glasses' }
+  {id: 1, name: 'Modèles 3D', icon: 'cube' },
+  {id: 2, name: 'Modèles Chibi', icon: 'child' },
+  {id: 3, name: 'Accessoires', icon: 'glasses' }
 ]
 
 categories.each do |category|
   Category.create!(category)
 end
 
-# Create cities
 City.destroy_all
 
 french_cities = [
@@ -70,8 +65,6 @@ french_cities.each do |city|
   City.create!(name: city[:name], latitude: city[:latitude], longitude: city[:longitude])
 end
 
-
-# Create products
 categories = Category.all
 
 20.times do
@@ -86,7 +79,43 @@ categories = Category.all
     )
 end
 
-# Create events
+Product.create!(
+      name: "Gojo satoru",
+      price: Faker::Commerce.price(range: 10..100.0),
+      description: "Modèles chibi du personnage Gojo Satoru du manga Jujutsu Kaisen",
+      image: "https://res.cloudinary.com/dhklqroj3/image/upload/v1717659187/chibi_gojo_xlpt2q.jpg",
+      category: Category.find(2),
+      likes: rand(0..100),
+      rating: (rand(0..10) / 2.0).round(1)
+    )
+    Product.create!(
+      name: "Sebastian",
+      price: Faker::Commerce.price(range: 10..100.0),
+      description: "Modèles chibi du personnage Sebastian du manga Black buttler",
+      image: "https://res.cloudinary.com/dhklqroj3/image/upload/v1717659186/chibi_sebastian_nta2lk.jpg",
+      category: Category.find(2),
+      likes: rand(0..100),
+      rating: (rand(0..10) / 2.0).round(1)
+    )
+    Product.create!(
+      name: "San goku",
+      price: Faker::Commerce.price(range: 10..100.0),
+      description: "Figurine du personnage San goku du manga DragonBall",
+      image: "https://res.cloudinary.com/dhklqroj3/image/upload/v1717659188/figurine_san1_huafnj.jpg",
+      category: Category.find(1),
+      likes: rand(0..100),
+      rating: (rand(0..10) / 2.0).round(1)
+    )
+    Product.create!(
+      name: "Poster Chibi",
+      price: Faker::Commerce.price(range: 10..100.0),
+      description: "Poster de plusieurs chibi",
+      image: "https://res.cloudinary.com/dhklqroj3/image/upload/v1717660683/_77af1d8c-dba7-4c26-b3f6-e43243fbf658_f7ptrp.jpg",
+      category: Category.find(3),
+      likes: rand(0..100),
+      rating: (rand(0..10) / 2.0).round(1)
+    )
+
 20.times do
   Event.create!(
     name: Faker::Lorem.sentence(word_count: 3),
@@ -100,7 +129,6 @@ end
   )
 end
 
-# Create stores
 Store.create!(
   name: "Boutique Paris",
   address: "123 Rue de Rivoli",
