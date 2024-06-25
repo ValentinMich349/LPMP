@@ -18,6 +18,11 @@ default: &default
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: <%= ENV['DATABASE_USERNAME'] %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>
+  host: <%= ENV['DATABASE_HOST'] %>
+  port: <%= ENV['DATABASE_PORT'] %>
+  database: <%= ENV['DATABASE_NAME'] %>
 
   
 development:
@@ -80,6 +85,4 @@ test:
 #
 production:
   <<: *default
-  database: lpmp_production
-  username: lpmp
-  password: <%= ENV["LPMP_DATABASE_PASSWORD"] %>
+url: <%= ENV['DATABASE_URL'] %>
