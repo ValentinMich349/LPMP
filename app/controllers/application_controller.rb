@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
     helper_method :current_order
     before_action :load_categories
     rescue_from ActiveRecord::RecordNotFound, with: :render_404
-    rescue_from ActionController::RoutingError, with: :render_404
+    rescue_from StandardError, with: :render_500
 
 
     def current_order
@@ -13,20 +13,6 @@ class ApplicationController < ActionController::Base
         order = Order.create(status: "cart")
         session[:order_id] = order.id
         order
-      end
-    end
-
-    def render_404
-      respond_to do |format|
-        format.html { render template: 'errors/not_found', status: 404 }
-        format.all { render nothing: true, status: 404 }
-      end
-    end
-  
-    def render_500
-      respond_to do |format|
-        format.html { render template: 'errors/internal_server_error', status: 500 }
-        format.all { render nothing: true, status: 500 }
       end
     end
 
@@ -56,7 +42,19 @@ class ApplicationController < ActionController::Base
     end
 
     
-
+    def render_404(exception = nil)
+      respond_to do |format|
+        format.html { render template: 'errors/not_found', status: 404 }
+        format.all { render nothing: true, status: 404 }
+      end
+    end
+  
+    def render_500(exception = nil)
+      respond_to do |format|
+        format.html { render template: 'errors/internal_server_error', status: 500 }
+        format.all { render nothing: true, status: 500 }
+      end
+    end
    
 end
 
