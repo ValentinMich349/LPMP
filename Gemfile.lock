@@ -91,22 +91,6 @@ GEM
     arbre (1.7.0)
       activesupport (>= 3.0.0)
       ruby2_keywords (>= 0.0.2)
-    aws-eventstream (1.3.0)
-    aws-partitions (1.944.0)
-    aws-sdk-core (3.197.0)
-      aws-eventstream (~> 1, >= 1.3.0)
-      aws-partitions (~> 1, >= 1.651.0)
-      aws-sigv4 (~> 1.8)
-      jmespath (~> 1, >= 1.6.1)
-    aws-sdk-kms (1.85.0)
-      aws-sdk-core (~> 3, >= 3.197.0)
-      aws-sigv4 (~> 1.1)
-    aws-sdk-s3 (1.152.3)
-      aws-sdk-core (~> 3, >= 3.197.0)
-      aws-sdk-kms (~> 1)
-      aws-sigv4 (~> 1.8)
-    aws-sigv4 (1.8.0)
-      aws-eventstream (~> 1, >= 1.0.2)
     base64 (0.2.0)
     bcrypt (3.1.20)
     bigdecimal (3.1.8)
@@ -165,7 +149,6 @@ GEM
     ffi (1.17.0-x86-linux-gnu)
     ffi (1.17.0-x86_64-darwin)
     ffi (1.17.0-x86_64-linux-gnu)
-    flatpickr (4.6.13.1)
     formtastic (5.0.0)
       actionpack (>= 6.0.0)
     formtastic_i18n (0.7.0)
@@ -195,7 +178,6 @@ GEM
     jbuilder (2.12.0)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
-    jmespath (1.6.2)
     jquery-rails (4.6.0)
       rails-dom-testing (>= 1, < 3)
       railties (>= 4.2.0)
@@ -263,8 +245,6 @@ GEM
       nio4r (~> 2.0)
     racc (1.8.0)
     rack (3.0.11)
-    rack-proxy (0.7.7)
-      rack
     rack-session (2.0.0)
       rack (>= 3.0.0)
     rack-test (2.1.0)
@@ -331,7 +311,6 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
-    semantic_range (3.0.0)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -364,11 +343,6 @@ GEM
       activemodel (>= 6.0.0)
       bindex (>= 0.4.0)
       railties (>= 6.0.0)
-    webpacker (5.4.4)
-      activesupport (>= 5.2)
-      rack-proxy (>= 0.6.1)
-      railties (>= 5.2)
-      semantic_range (>= 2.3.0)
     webrick (1.8.1)
     websocket (1.2.10)
     websocket-driver (0.7.6)
@@ -389,7 +363,6 @@ PLATFORMS
 DEPENDENCIES
   activeadmin (~> 3.2)
   activestorage-cloudinary-service (~> 0.2.3)
-  aws-sdk-s3 (~> 1.152)
   bootsnap
   capybara
   cloudinary
@@ -398,7 +371,6 @@ DEPENDENCIES
   dockerfile-rails (>= 1.6)
   dotenv-rails (~> 3.1)
   faker (~> 3.4)
-  flatpickr (~> 4.6)
   geocoder (~> 1.8)
   i18n (~> 1.14)
   importmap-rails
@@ -417,7 +389,6 @@ DEPENDENCIES
   turbolinks (~> 5.2)
   tzinfo-data
   web-console
-  webpacker (~> 5.4)
 
 RUBY VERSION
    ruby 3.2.2p53
