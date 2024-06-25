@@ -67,17 +67,17 @@ end
 
 categories = Category.all
 
-20.times do
-    Product.create!(
-      name: Faker::Commerce.product_name,
-      price: Faker::Commerce.price(range: 10..100.0),
-      description: Faker::Lorem.paragraph,
-      image: Faker::LoremFlickr.image(size: "300x300", search_terms: ['product']),
-      category: categories.sample,
-      likes: rand(0..100),
-      rating: (rand(0..10) / 2.0).round(1)
-    )
-end
+# 20.times do
+#     Product.create!(
+#       name: Faker::Commerce.product_name,
+#       price: Faker::Commerce.price(range: 10..100.0),
+#       description: Faker::Lorem.paragraph,
+#       image: Faker::LoremFlickr.image(size: "300x300", search_terms: ['product']),
+#       category: categories.sample,
+#       likes: rand(0..100),
+#       rating: (rand(0..10) / 2.0).round(1)
+#     )
+# end
 
 Product.create!(
       name: "Gojo satoru",
