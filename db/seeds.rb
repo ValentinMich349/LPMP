@@ -18,7 +18,7 @@ User.create!(
   pseudo: "admin"
 )
 
-10.times do
+users = 10.times.map do
   User.create!(
     email: Faker::Internet.email,
     password: "password",
@@ -74,16 +74,16 @@ end
 # Create products
 categories = Category.all
 
-50.times do
-  Product.create!(
-    name: Faker::Commerce.product_name,
-    price: Faker::Commerce.price(range: 10..100.0),
-    description: Faker::Lorem.paragraph,
-    image: Faker::LoremFlickr.image(size: "300x300", search_terms: ['product']),
-    category: categories.sample,
-    likes: rand(0..100),
-    rating: (rand(0..10) / 2.0).round(1) 
-  )
+20.times do
+    Product.create!(
+      name: Faker::Commerce.product_name,
+      price: Faker::Commerce.price(range: 10..100.0),
+      description: Faker::Lorem.paragraph,
+      image: Faker::LoremFlickr.image(size: "300x300", search_terms: ['product']),
+      category: categories.sample,
+      likes: rand(0..100),
+      rating: (rand(0..10) / 2.0).round(1)
+    )
 end
 
 # Create events
@@ -95,10 +95,12 @@ end
     start: Faker::Time.forward(days: 30, period: :day),
     end: Faker::Time.forward(days: 30, period: :night),
     city: City.all.sample,
-    image_url: Faker::LoremFlickr.image(size: "600x400", search_terms: ['event'])
+    image_url: Faker::LoremFlickr.image(size: "600x400", search_terms: ['event']),
+    user: users.sample
   )
 end
 
+# Create stores
 Store.create!(
   name: "Boutique Paris",
   address: "123 Rue de Rivoli",
@@ -134,6 +136,103 @@ Store.create!(
   latitude: 43.6108,
   longitude: 3.8767
 )
+
+Store.create!(
+  name: "Boutique Lyon",
+  address: "85 Rue de la République",
+  city: "Lyon",
+  state: "Auvergne-Rhône-Alpes",
+  zip_code: "69002",
+  phone_number: "+33 4 72 10 30 40",
+  email: "contact@boutiquelyon.fr",
+  latitude: 45.7640,
+  longitude: 4.8357
+)
+
+Store.create!(
+  name: "Magasin de Marseille",
+  address: "10 Rue Saint-Ferréol",
+  city: "Marseille",
+  state: "Provence-Alpes-Côte d'Azur",
+  zip_code: "13001",
+  phone_number: "+33 4 91 00 50 60",
+  email: "contact@magasindemarseille.fr",
+  latitude: 43.2965,
+  longitude: 5.3698
+)
+
+Store.create!(
+  name: "Boutique Toulouse",
+  address: "23 Rue d'Alsace Lorraine",
+  city: "Toulouse",
+  state: "Occitanie",
+  zip_code: "31000",
+  phone_number: "+33 5 61 00 20 30",
+  email: "contact@boutiquetoulouse.fr",
+  latitude: 43.6047,
+  longitude: 1.4442
+)
+
+Store.create!(
+  name: "Magasin de Nantes",
+  address: "15 Rue Crébillon",
+  city: "Nantes",
+  state: "Pays de la Loire",
+  zip_code: "44000",
+  phone_number: "+33 2 40 00 10 20",
+  email: "contact@magasindenantes.fr",
+  latitude: 47.2184,
+  longitude: -1.5536
+)
+
+Store.create!(
+  name: "Librairie de Bordeaux",
+  address: "50 Rue Sainte-Catherine",
+  city: "Bordeaux",
+  state: "Nouvelle-Aquitaine",
+  zip_code: "33000",
+  phone_number: "+33 5 56 00 30 40",
+  email: "contact@librairiedebordeaux.fr",
+  latitude: 44.8378,
+  longitude: -0.5792
+)
+
+Store.create!(
+  name: "Boutique Lille",
+  address: "32 Rue de Béthune",
+  city: "Lille",
+  state: "Hauts-de-France",
+  zip_code: "59000",
+  phone_number: "+33 3 20 00 40 50",
+  email: "contact@boutiquelille.fr",
+  latitude: 50.6292,
+  longitude: 3.0573
+)
+
+Store.create!(
+  name: "Magasin de Nice",
+  address: "28 Avenue Jean Médecin",
+  city: "Nice",
+  state: "Provence-Alpes-Côte d'Azur",
+  zip_code: "06000",
+  phone_number: "+33 4 93 00 20 30",
+  email: "contact@magasindenice.fr",
+  latitude: 43.7102,
+  longitude: 7.2620
+)
+
+Store.create!(
+  name: "Librairie de Strasbourg",
+  address: "18 Rue des Grandes Arcades",
+  city: "Strasbourg",
+  state: "Grand Est",
+  zip_code: "67000",
+  phone_number: "+33 3 88 00 50 60",
+  email: "contact@librairiedestrasbourg.fr",
+  latitude: 48.5839,
+  longitude: 7.7455
+)
+
 puts "Seed data created successfully!"
 
 

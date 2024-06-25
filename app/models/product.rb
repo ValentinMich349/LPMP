@@ -1,5 +1,5 @@
 class Product < ApplicationRecord
-  validates :name, presence: true
+  validates :name, :price, :description, :image, presence: true
   validates :description, presence: true
   has_many :cart_items
   has_many :carts, through: :cart_items
@@ -18,7 +18,6 @@ class Product < ApplicationRecord
 
   validates :likes, numericality: { greater_than_or_equal_to: 0 }
   validates :rating, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 5 }
-  validates :name, presence: true
   validates :price, presence: true, numericality: { greater_than_or_equal_to: 0 }
 
   # Ajout d'une méthode pour récupérer l'URL de l'image à partir de Cloudinary
