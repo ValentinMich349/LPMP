@@ -29,12 +29,6 @@
         <div class="card-header">
           <h5>Éditer votre profil</h5>
         </div>
-
-        <%= form_for @user do |f| %>
-          <%= f.label :avatar %>
-          <%= f.file_field :avatar %>
-          <%= f.submit %>
-        <% end %>
         <div class="card-body">
           <%= form_for @user, url: user_path(@user), html: { method: :put } do |f| %>
             <div class="form-row">
