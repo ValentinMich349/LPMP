@@ -80,6 +80,7 @@ test:
 #
 production:
   <<: *default
-  database: lpmp_production
-  username: lpmp
+  database: lpmp_db
+  username: lpmp_db_user
   password: <%= ENV["LPMP_DATABASE_PASSWORD"] %>
+  host: dpg-cptcl8hu0jms738au8h0-a
