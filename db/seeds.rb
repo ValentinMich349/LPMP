@@ -116,15 +116,69 @@ Product.create!(
       rating: (rand(0..10) / 2.0).round(1)
     )
 
-20.times do
+# Create events
+events = [
+  {
+    name: "Chasse au One Piece",
+    description: "Rejoignez Luffy et son équipage à la recherche du one piece dans toute la ville !",
+    image_url: "https://res.cloudinary.com/dhklqroj3/image/upload/v1719394986/event_jplc5i.webp"
+  },
+  {
+    name: "Can you win ?",
+    description: "Venez participer à la reproduction des batailles épiques de vos mangas préférés ! Incarnez ainsi votre personnage préféré !",
+    image_url: "https://res.cloudinary.com/dhklqroj3/image/upload/v1719394268/event2_fghgrr.jpg"
+  },
+  {
+    name: "Anime Session",
+    description: "Réservez vos places pour assister à l'avant première de cette série à succès, enfin adapté en anime !",
+    image_url: "https://res.cloudinary.com/dhklqroj3/image/upload/v1719394268/event3_jkmk7x.jpg"
+  },
+  {
+    name: "Salon du soleil levant",
+    description: "Venez découvrir les nouveautés de l'univers manga ! Repas et boissons inspiré également des plats d'animés !",
+    image_url: "https://res.cloudinary.com/dhklqroj3/image/upload/v1719394269/event4_xuf0bs.jpg"
+  },
+  {
+    name: "Can you create up ?",
+    description: "Concert du groupe d'idol 'Can you create up ? ' Les places sont d'hors et déjà en vente sur notre site !",
+    image_url: "https://res.cloudinary.com/dhklqroj3/image/upload/v1719394273/event5_p5bdi3.jpg"
+  },
+  {
+    name: "Read it",
+    description: "Venez participer à ce grand salon de thé et partagez vos oeuvres préférés !",
+    image_url: "https://res.cloudinary.com/dhklqroj3/image/upload/v1719394274/event6_gsdfxx.jpg"
+  },
+  {
+    name: "Can Create Event ?",
+    description: "Vous vous sentez l'âme d'un organisateur chevronné ? Venez tester vos capacités à pouvoir animer !",
+    image_url: "https://res.cloudinary.com/dhklqroj3/image/upload/v1719394275/event7_ewiz4j.jpg"
+  },
+  {
+    name: "Shojo Show",
+    description: "Découvrez les nouveaux Shojo tendances du moment ! Participez aux activités sur place et découvrez votre nouvelle âme soeur ?",
+    image_url: "https://res.cloudinary.com/dhklqroj3/image/upload/v1719394277/event8_rax0w3.jpg"
+  },
+  {
+    name: "Attack Convention",
+    description: "Rien de mieux qu'une partie géante de paintball dans la tenue de votre personnage préféré !",
+    image_url: "https://res.cloudinary.com/dhklqroj3/image/upload/v1719394278/event9_ltd38l.jpg"
+  },
+  {
+    name: "Paint The World",
+    description: "Venez Assister à la convention afin d'y découvrir vos illustrateurs préférés et y apprendre leurs techniques !",
+    image_url: "https://res.cloudinary.com/dhklqroj3/image/upload/v1719394281/event10_mqiihp.jpg"
+  }
+]
+
+events.each do |event|
   Event.create!(
-    name: Faker::Lorem.sentence(word_count: 3),
-    description: Faker::Lorem.paragraph,
+    name: event[:name],
+    description: event[:description],
     price: Faker::Commerce.price(range: 10..100.0),
     start: Faker::Time.forward(days: 30, period: :day),
     end: Faker::Time.forward(days: 30, period: :night),
     city: City.all.sample,
-    image_url: Faker::LoremFlickr.image(size: "600x400", search_terms: ['event']),
+    image_url: event[:image_url],
     user: users.sample
   )
 end
