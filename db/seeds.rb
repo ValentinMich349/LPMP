@@ -115,6 +115,177 @@ Product.create!(
       likes: rand(0..100),
       rating: (rand(0..10) / 2.0).round(1)
     )
+    Product.create!(
+      name: "Hashirama Senju",
+      price: Faker::Commerce.price(range: 10..100.0),
+      description: "Figurine Hashirama Senju ",
+      image: "https://res.cloudinary.com/dhklqroj3/image/upload/v1719475137/f618776c11f57145b448f7bc463c4af3_g8sgnu.jpg",
+      category: Category.find(3),
+      likes: rand(0..100),
+      rating: (rand(0..10) / 2.0).round(1)
+    )
+    Product.create!(
+      name: "Naruto",
+      price: Faker::Commerce.price(range: 10..100.0),
+      description: "Figurine Naruto Fusion Kurama",
+      image: "https://res.cloudinary.com/dhklqroj3/image/upload/v1719475133/OIP_1_yfnazm.jpg",
+      category: Category.find(3),
+      likes: rand(0..100),
+      rating: (rand(0..10) / 2.0).round(1)
+    )
+    Product.create!(
+      name: "Madara Uchiha",
+      price: Faker::Commerce.price(range: 10..100.0),
+      description: "Figurine Madara Uchiha x kurama",
+      image: "https://res.cloudinary.com/dhklqroj3/image/upload/v1719475126/0d7bc4c97aff468c514c2a79a61999a9_tdrhag.jpg",
+      category: Category.find(3),
+      likes: rand(0..100),
+      rating: (rand(0..10) / 2.0).round(1)
+    )
+    Product.create!(
+      name: "Luffy",
+      price: Faker::Commerce.price(range: 10..100.0),
+      description: "Figurine Luffy",
+      image: "https://res.cloudinary.com/dhklqroj3/image/upload/v1719393384/R_mhluay.jpg",
+      category: Category.find(3),
+      likes: rand(0..100),
+      rating: (rand(0..10) / 2.0).round(1)
+    )
+    Product.create!(
+      name: "Femto",
+      price: Faker::Commerce.price(range: 10..100.0),
+      description: "Figurine Femto",
+      image: "https://res.cloudinary.com/dhklqroj3/image/upload/v1719393384/R_2_sw3hw6.jpg",
+      category: Category.find(3),
+      likes: rand(0..100),
+      rating: (rand(0..10) / 2.0).round(1)
+    )
+    Product.create!(
+      name: "Ace",
+      price: Faker::Commerce.price(range: 10..100.0),
+      description: "Figurine Ace",
+      image: "https://res.cloudinary.com/dhklqroj3/image/upload/v1719393383/R_1_korzjr.jpg",
+      category: Category.find(3),
+      likes: rand(0..100),
+      rating: (rand(0..10) / 2.0).round(1)
+    )
+    Product.create!(
+      name: "Pilier de la flamme Rengoku Kyojuro",
+      price: Faker::Commerce.price(range: 10..100.0),
+      description: "Figurine Rengoku Kyojuro",
+      image: "https://res.cloudinary.com/dhklqroj3/image/upload/v1719393383/product-image-1462562047-768x1024_a34dkl.jpgxvS",
+      category: Category.find(3),
+      likes: rand(0..100),
+      rating: (rand(0..10) / 2.0).round(1)
+    )
+    Product.create!(
+      name: "Shigaraki Tomura",
+      price: Faker::Commerce.price(range: 10..100.0),
+      description: "Figurine Shigaraki Tomura ",
+      image: "https://res.cloudinary.com/dhklqroj3/image/upload/v1719393380/my-hero-academia-figurine-tomura-hvsv_oyrbli.jpg",
+      category: Category.find(3),
+      likes: rand(0..100),
+      rating: (rand(0..10) / 2.0).round(1)
+    )
+    Product.create!(
+      name: "Deku",
+      price: Faker::Commerce.price(range: 10..100.0),
+      description: "Figurine Deku one for all",
+      image: "https://res.cloudinary.com/dhklqroj3/image/upload/v1719393380/kotobukiya-227149-my-hero-academia-izuku-midoriya-dark-deku-artfxj-2_aapdkb.png",
+      category: Category.find(3),
+      likes: rand(0..100),
+      rating: (rand(0..10) / 2.0).round(1)
+    )
+    Product.create!(
+      name: "Luffy Ultime",
+      price: Faker::Commerce.price(range: 10..100.0),
+      description: "Figurine luffy GodMode",
+      image: "https://res.cloudinary.com/dhklqroj3/image/upload/v1719393379/figurine-one-piece-luffy-liste_yktwae.jpg",
+      category: Category.find(3),
+      likes: rand(0..100),
+      rating: (rand(0..10) / 2.0).round(1)
+    )
+    Product.create!(
+      name: "Griffith",
+      price: Faker::Commerce.price(range: 10..100.0),
+      description: "Figurine Griffith",
+      image: "https://res.cloudinary.com/dhklqroj3/image/upload/v1719393379/Figurine-Figma-Griffith-Berserk-1_b5gpuw.jpg",
+      category: Category.find(3),
+      likes: rand(0..100),
+      rating: (rand(0..10) / 2.0).round(1)
+    )
+    Product.create!(
+      name: "Mechant Berserk",
+      price: Faker::Commerce.price(range: 10..100.0),
+      description: "Enssemble de figurine Berserk",
+      image: "https://res.cloudinary.com/dhklqroj3/image/upload/v1719393376/FIGURE-021614_07_gos9qk.jpg",
+      category: Category.find(3),
+      likes: rand(0..100),
+      rating: (rand(0..10) / 2.0).round(1)
+    )
+    Product.create!(
+      name: "Satoru Gojo",
+      price: Faker::Commerce.price(range: 10..100.0),
+      description: "Figurine Satoru Gojo",
+      image: "https://res.cloudinary.com/dhklqroj3/image/upload/v1719393375/430fdf6bce8a4d8eb370178e6c0eb7e0_qnlgms.jpg",
+      category: Category.find(3),
+      likes: rand(0..100),
+      rating: (rand(0..10) / 2.0).round(1)
+    )
+    Product.create!(
+      name: "Itadori Yuji",
+      price: Faker::Commerce.price(range: 10..100.0),
+      description: "Figurine Itadori Yuji Fusion Demonic",
+      image: "https://res.cloudinary.com/dhklqroj3/image/upload/v1719393375/FIGBTN621047_1_s1gokp.webp",
+      category: Category.find(3),
+      likes: rand(0..100),
+      rating: (rand(0..10) / 2.0).round(1)
+    )
+    Product.create!(
+      name: "Pig Head",
+      price: Faker::Commerce.price(range: 10..100.0),
+      description: "Figurine Pig Head Dance des lames",
+      image: "https://res.cloudinary.com/dhklqroj3/image/upload/v1719393375/demon-slayer-figurine-inosuke-figuarts-zero_eawf3n.jpg",
+      category: Category.find(3),
+      likes: rand(0..100),
+      rating: (rand(0..10) / 2.0).round(1)
+    )
+    Product.create!(
+      name: "Figth Berserk",
+      price: Faker::Commerce.price(range: 10..100.0),
+      description: "Figurine Figth",
+      image: "https://res.cloudinary.com/dhklqroj3/image/upload/v1719393374/127081_vwxxto.jpg",
+      category: Category.find(3),
+      likes: rand(0..100),
+      rating: (rand(0..10) / 2.0).round(1)
+    )
+    Product.create!(
+      name: "Figth My hero academia",
+      price: Faker::Commerce.price(range: 10..100.0),
+      description: "Figurine Figth My hero academia",
+      image: "https://res.cloudinary.com/dhklqroj3/image/upload/v1719393374/d0367ae6d4e3c967e4662b9cc51a495d_q7kfza.jpg",
+      category: Category.find(3),
+      likes: rand(0..100),
+      rating: (rand(0..10) / 2.0).round(1)
+    )
+    Product.create!(
+      name: "Kanroji Mitsuri",
+      price: Faker::Commerce.price(range: 10..100.0),
+      description: "Figurine Kanroji Mitsuri",
+      image: "https://res.cloudinary.com/dhklqroj3/image/upload/v1719393374/91CDhhB_gEL._AC_SL1500__ohghl8.jpg",
+      category: Category.find(3),
+      likes: rand(0..100),
+      rating: (rand(0..10) / 2.0).round(1)
+    )
+    Product.create!(
+      name: "Gutz",
+      price: Faker::Commerce.price(range: 10..100.0),
+      description: "Figurine Gutz",
+      image: "https://res.cloudinary.com/dhklqroj3/image/upload/v1719393374/4582535948577_ukbgr0.webp",
+      category: Category.find(3),
+      likes: rand(0..100),
+      rating: (rand(0..10) / 2.0).round(1)
+    )
 
 # Create events
 events = [
