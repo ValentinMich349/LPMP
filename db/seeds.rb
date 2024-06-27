@@ -226,7 +226,7 @@ Product.create!(
     Product.create!(
       name: "Satoru Gojo",
       price: Faker::Commerce.price(range: 10..100.0),
-      description: "Figurine Satoru Gojo",
+      description: "Figurine Satoru Gojo manga Jujustsu kysen",
       image: "https://res.cloudinary.com/dhklqroj3/image/upload/v1719393375/430fdf6bce8a4d8eb370178e6c0eb7e0_qnlgms.jpg",
       category: Category.find(3),
       likes: rand(0..100),
@@ -235,7 +235,7 @@ Product.create!(
     Product.create!(
       name: "Itadori Yuji",
       price: Faker::Commerce.price(range: 10..100.0),
-      description: "Figurine Itadori Yuji Fusion Demonic",
+      description: "Figurine Itadori Yuji Fusion Demonic manga Jujustsu kysen",
       image: "https://res.cloudinary.com/dhklqroj3/image/upload/v1719393375/FIGBTN621047_1_s1gokp.webp",
       category: Category.find(3),
       likes: rand(0..100),
@@ -244,7 +244,7 @@ Product.create!(
     Product.create!(
       name: "Pig Head",
       price: Faker::Commerce.price(range: 10..100.0),
-      description: "Figurine Pig Head Dance des lames",
+      description: "Figurine Pig Head Dance des lames manga demon slayer",
       image: "https://res.cloudinary.com/dhklqroj3/image/upload/v1719393375/demon-slayer-figurine-inosuke-figuarts-zero_eawf3n.jpg",
       category: Category.find(3),
       likes: rand(0..100),
@@ -253,7 +253,7 @@ Product.create!(
     Product.create!(
       name: "Figth Berserk",
       price: Faker::Commerce.price(range: 10..100.0),
-      description: "Figurine Figth",
+      description: "Figurine Figth manga berserk",
       image: "https://res.cloudinary.com/dhklqroj3/image/upload/v1719393374/127081_vwxxto.jpg",
       category: Category.find(3),
       likes: rand(0..100),
@@ -262,7 +262,7 @@ Product.create!(
     Product.create!(
       name: "Figth My hero academia",
       price: Faker::Commerce.price(range: 10..100.0),
-      description: "Figurine Figth My hero academia",
+      description: "Figurine Figth manga My hero academia",
       image: "https://res.cloudinary.com/dhklqroj3/image/upload/v1719393374/d0367ae6d4e3c967e4662b9cc51a495d_q7kfza.jpg",
       category: Category.find(3),
       likes: rand(0..100),
@@ -271,7 +271,7 @@ Product.create!(
     Product.create!(
       name: "Kanroji Mitsuri",
       price: Faker::Commerce.price(range: 10..100.0),
-      description: "Figurine Kanroji Mitsuri",
+      description: "Figurine Kanroji Mitsuri manga Jujustsu kysen",
       image: "https://res.cloudinary.com/dhklqroj3/image/upload/v1719393374/91CDhhB_gEL._AC_SL1500__ohghl8.jpg",
       category: Category.find(3),
       likes: rand(0..100),
@@ -280,7 +280,7 @@ Product.create!(
     Product.create!(
       name: "Gutz",
       price: Faker::Commerce.price(range: 10..100.0),
-      description: "Figurine Gutz",
+      description: "Figurine Gutz manga berserk",
       image: "https://res.cloudinary.com/dhklqroj3/image/upload/v1719393374/4582535948577_ukbgr0.webp",
       category: Category.find(3),
       likes: rand(0..100),
